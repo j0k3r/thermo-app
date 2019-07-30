@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, ActivityIndicator } from 'react-native';
+import { View, Text, FlatList, ActivityIndicator, Button } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
 import ky from 'ky'
@@ -91,6 +91,10 @@ class ListThermo extends Component {
       return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <Text>Error while trying to retrieve data</Text>
+          <Button
+            title="Retry"
+            onPress={this._fetchInitialData}
+          />
           <DropdownAlert ref={ref => this.dropDownAlertRef = ref} />
         </View>
       );
