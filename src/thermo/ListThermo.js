@@ -4,7 +4,7 @@ import { ListItem } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
 import ky from 'ky'
 import DropdownAlert from 'react-native-dropdownalert';
-import TimeAgo from './TimeAgo'
+import TimeAgo from '../TimeAgo'
 
 class ListThermo extends Component {
   constructor(props) {
@@ -79,7 +79,7 @@ class ListThermo extends Component {
   }
 
   render() {
-    if (this.state.loading) {
+    if (this.state.loading || this.state.data.length === 0) {
       return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <ActivityIndicator />
@@ -122,14 +122,16 @@ class ListThermo extends Component {
                 this.props.navigation.navigate('Details', {
                   mac: item.mac,
                   label: item.label,
-                  headerColor: item.color,
-                  battery: item.battery,
+                  color: item.color,
+                  last_update: item.last_update,
+                  last_battery: item.last_battery,
+                  last_temperature: item.last_temperature,
                 });
               }}
               leftElement={
                 <View style={{ backgroundColor: '#fff', borderRadius: 35, height: 70, width: 70 }}>
                   <Text style={{ color: 'black', fontSize: 25, fontWeight: '300', marginTop: 21, marginLeft: 12 }}>
-                    {Math.round(item.last_temperature/100)}°C
+                    {Math.round(item.last_temperature)}°C
                   </Text>
                 </View>
               }

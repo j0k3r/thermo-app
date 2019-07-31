@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { SafeAreaView } from 'react-native';
-import ListThermo from '../ListThermo';
+import ListThermo from '../thermo/ListThermo';
 
 class HomeScreen extends Component {
   static navigationOptions = {

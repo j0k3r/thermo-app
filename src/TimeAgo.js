@@ -7,6 +7,10 @@ import fr from 'timeago.js/lib/lang/fr'
 class TimeAgo extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      timer: null,
+    };
   }
 
   componentDidMount() {

@@ -1,6 +1,5 @@
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 import { useScreens } from 'react-native-screens';
-import ListThermo from './src/ListThermo';
 import HomeScreen from './src/screen/HomeScreen';
 import DetailsScreen from './src/screen/DetailsScreen';
 

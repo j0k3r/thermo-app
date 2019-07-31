@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { SafeAreaView, Text } from 'react-native';
+import ViewThermo from '../thermo/ViewThermo'
 
 class DetailsScreen extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -9,7 +10,7 @@ class DetailsScreen extends Component {
           <Text style={{ color: 'black', fontWeight: '400', fontSize: 28 }}>{navigation.getParam('label')}</Text>
         </Text>,
       headerStyle: {
-        backgroundColor: navigation.getParam('headerColor'),
+        backgroundColor: navigation.getParam('color'),
       },
       headerTitleStyle: {
         fontSize: 20
@@ -18,15 +19,10 @@ class DetailsScreen extends Component {
   };
 
   render() {
-    const { navigation } = this.props;
-
-    const mac = navigation.getParam('mac');
-    const label = navigation.getParam('label');
-
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Thermo {label}</Text>
-      </View>
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+        <ViewThermo />
+      </SafeAreaView>
     );
   }
 }
