@@ -79,7 +79,7 @@ class ListThermo extends Component {
   }
 
   render() {
-    if (this.state.loading || this.state.data.length === 0) {
+    if (this.state.loading || (this.state.data.length === 0 && this.state.error === null)) {
       return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <ActivityIndicator />

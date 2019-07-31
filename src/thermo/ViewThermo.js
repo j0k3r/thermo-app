@@ -3,8 +3,8 @@ import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
 import ky from 'ky'
+import { AbortController, AbortSignal } from "abort-controller/dist/abort-controller"
 import format from 'date-fns/format'
-import DropdownAlert from 'react-native-dropdownalert';
 import TimeAgo from '../TimeAgo'
 
 class ViewThermo extends Component {
@@ -18,6 +18,9 @@ class ViewThermo extends Component {
       error: null,
     };
 
+    // used to abort request in case of leaving the component before the request has finish
+    this.controller = new AbortController();
+
     this.url = 'http://192.168.42.26:4730/thermo/__MAC__/detail'
   }
 
@@ -25,11 +28,18 @@ class ViewThermo extends Component {
     await this._fetchInitialData();
   }
 
+  async componentWillUnmount() {
+    this.controller.abort();
+  }
+
   _fetchData = async () => {
+    const { signal } = this.controller;
+
     return ky.get(
       this.url.replace('__MAC__', this.props.navigation.getParam('mac')),
       {
         timeout: 5000,
+        signal,
       }
     ).json();
   }
@@ -50,8 +60,6 @@ class ViewThermo extends Component {
         error,
         loading: false
       });
-
-      this.dropDownAlertRef.alertWithType('error', 'Error', 'Network issue');
     }
   };
 
@@ -179,8 +187,6 @@ class ViewThermo extends Component {
             </Text>
           </View>
         </View>
-
-        <DropdownAlert ref={ref => this.dropDownAlertRef = ref} />
       </View>
     );
   }
