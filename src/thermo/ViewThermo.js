@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
@@ -6,62 +6,14 @@ import ky from 'ky'
 import { AbortController, AbortSignal } from "abort-controller/dist/abort-controller"
 import format from 'date-fns/format'
 import TimeAgo from '../TimeAgo'
+import BaseThermo from './BaseThermo'
 
-class ViewThermo extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      loading: false,
-      refreshing: false,
-      data: {},
-      error: null,
-    };
-
-    // used to abort request in case of leaving the component before the request has finish
-    this.controller = new AbortController();
-
-    this.url = 'http://192.168.42.26:4730/thermo/__MAC__/detail'
-  }
-
+class ViewThermo extends BaseThermo {
   async componentDidMount() {
+    this.url = `http://192.168.42.26:4730/thermo/${this.props.navigation.getParam('mac')}/detail`
+
     await this._fetchInitialData();
   }
-
-  async componentWillUnmount() {
-    this.controller.abort();
-  }
-
-  _fetchData = async () => {
-    const { signal } = this.controller;
-
-    return ky.get(
-      this.url.replace('__MAC__', this.props.navigation.getParam('mac')),
-      {
-        timeout: 5000,
-        signal,
-      }
-    ).json();
-  }
-
-  _fetchInitialData = async () => {
-    this.setState({ loading: true });
-
-    try {
-      const res = await this._fetchData();
-
-      this.setState({
-        data: res,
-        error: null,
-        loading: false,
-      });
-    } catch (error) {
-      this.setState({
-        error,
-        loading: false
-      });
-    }
-  };
 
   render() {
     const { navigation } = this.props
