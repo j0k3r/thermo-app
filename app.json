@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "SensePeanut",
-    "slug": "expo",
-    "privacy": "public",
-    "sdkVersion": "33.0.0",
+    "name": "Thermo",
+    "slug": "thermo",
+    "privacy": "unlisted",
+    "sdkVersion": "34.0.0",
     "platforms": [
       "ios",
       "android",
@@ -25,6 +25,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "",
+    "githubUrl": "https://github.com/j0k3r/thermo"
   }
 }

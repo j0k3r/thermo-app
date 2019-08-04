@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { SafeAreaView, Text } from 'react-native';
+import { SafeAreaView, Text, ScrollView } from 'react-native';
 import ViewThermo from '../thermo/ViewThermo'
 
 class DetailsScreen extends Component {
@@ -20,9 +20,12 @@ class DetailsScreen extends Component {
 
   render() {
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
-        <ViewThermo />
-      </SafeAreaView>
+      // https://github.com/facebook/react-native/issues/19658#issuecomment-423814249
+      <ScrollView contentInsetAdjustmentBehavior="automatic">
+        <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+          <ViewThermo />
+        </SafeAreaView>
+      </ScrollView>
     );
   }
 }

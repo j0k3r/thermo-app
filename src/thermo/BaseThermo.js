@@ -32,7 +32,7 @@ class BaseThermo extends Component {
     return ky.get(
       this.url,
       {
-        timeout: 5000,
+        timeout: 10000,
         signal,
       }
     ).json();
