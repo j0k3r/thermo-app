@@ -36,24 +36,31 @@ class ViewThermo extends BaseThermo {
     await this._fetchInitialData();
   }
 
+  calculateMinDomain(data) {
+    const reduced = data.reduce((prev, current) => (parseFloat(prev.value) < parseFloat(current.value)) ? prev : current, [{value: 0}])
+
+    return reduced.value - 10
+  }
+
   render() {
     // https://github.com/indiespirit/react-native-chart-kit#responsive-charts
     const screenWidth = Dimensions.get('window').width
 
     const { navigation } = this.props
 
+    const color = navigation.getParam('color')
+    const last_update = navigation.getParam('last_update')
+    const last_battery = navigation.getParam('last_battery')
+    const last_temperature = navigation.getParam('last_temperature')
+
     const {
-      max = null,
-      max_date = null,
-      min = null,
-      min_date = null,
-      color = navigation.getParam('color'),
-      last_update = navigation.getParam('last_update'),
-      last_battery = navigation.getParam('last_battery'),
-      last_temperature = navigation.getParam('last_temperature'),
-      last_24h = [],
-      last_30d = [],
-      last_52w = [],
+      max,
+      max_date: maxDate,
+      min,
+      min_date: minDate,
+      last_24h: last24h,
+      last_30d: last30d,
+      last_52w: last52w,
     } = this.state.data;
 
     const styles = StyleSheet.create({
@@ -117,14 +124,14 @@ class ViewThermo extends BaseThermo {
             <Text style={ styles.minMaxTemperature }>
               {min && min.toFixed(1)}°C
             </Text>
-            <Text style={ styles.minMaxDate }>{min_date && format(min_date, 'DD/MM/YY HH:mm')}</Text>
+            <Text style={ styles.minMaxDate }>{minDate && format(minDate, 'DD/MM/YY HH:mm')}</Text>
           </View>
           <View style={ styles.column }>
             <Text>maximale</Text>
             <Text style={ styles.minMaxTemperature }>
               {min && max.toFixed(1)}°C
             </Text>
-            <Text style={ styles.minMaxDate }>{max_date && format(max_date, 'DD/MM/YY HH:mm')}</Text>
+            <Text style={ styles.minMaxDate }>{maxDate && format(maxDate, 'DD/MM/YY HH:mm')}</Text>
           </View>
         </View>
 
@@ -140,31 +147,34 @@ class ViewThermo extends BaseThermo {
             </Text>
           </View>
         </View>
+
         <View pointerEvents="none">
-          <VictoryChart
-            height={200}
-            width={screenWidth}
-            minDomain={{ y: this.state.data.last_24h.reduce((prev, current) => (parseFloat(prev.value) < parseFloat(current.value)) ? prev : current, [{value: 0}]).value - 10 }}
-            domainPadding={{ x: 10 }}
-          >
-            <VictoryAxis dependentAxis fixLabelOverlap />
-            <VictoryAxis
-              fixLabelOverlap
-              tickFormat={(t) => t.toString().substring(0, 2)}
-            />
-            <VictoryBar
-              style={{
-                data: { fill: color },
-                labels: { fill: "white" }
-              }}
-              alignment="middle"
-              barRatio={0.8}
-              data={this.state.data.last_24h}
-              x="time"
-              y="value"
-              labelComponent={<VictoryTooltip/>}
-            />
-          </VictoryChart>
+          { last24h.length > 0 && (
+            <VictoryChart
+              height={200}
+              width={screenWidth}
+              minDomain={{ y: this.calculateMinDomain(last24h) }}
+              domainPadding={{ x: 10 }}
+            >
+              <VictoryAxis dependentAxis fixLabelOverlap />
+              <VictoryAxis
+                fixLabelOverlap
+                tickFormat={(t) => t.toString().substring(0, 2)}
+              />
+              <VictoryBar
+                style={{
+                  data: { fill: color },
+                  labels: { fill: "white" }
+                }}
+                alignment="middle"
+                barRatio={0.8}
+                data={last24h}
+                x="time"
+                y="value"
+                labelComponent={<VictoryTooltip/>}
+              />
+            </VictoryChart>
+          )}
         </View>
 
         {/* 30 days stats */}
@@ -179,27 +189,30 @@ class ViewThermo extends BaseThermo {
             </Text>
           </View>
         </View>
+
         <View pointerEvents="none">
-          <VictoryChart
-            height={200}
-            width={screenWidth}
-            minDomain={{ y: this.state.data.last_30d.reduce((prev, current) => (parseFloat(prev.value) < parseFloat(current.value)) ? prev : current, [{value: 0}]).value - 10 }}
-            domainPadding={{ x: 10 }}
-          >
-            <VictoryAxis dependentAxis fixLabelOverlap />
-            <VictoryAxis fixLabelOverlap />
-            <VictoryBar
-              style={{
-                data: { fill: color },
-                labels: { fill: "white" }
-              }}
-              alignment="middle"
-              barRatio={0.9}
-              data={this.state.data.last_30d}
-              x="time"
-              y="value"
-            />
-          </VictoryChart>
+          { last30d.length > 0 && (
+            <VictoryChart
+              height={200}
+              width={screenWidth}
+              minDomain={{ y: this.calculateMinDomain(last30d) }}
+              domainPadding={{ x: 10 }}
+            >
+              <VictoryAxis dependentAxis fixLabelOverlap />
+              <VictoryAxis fixLabelOverlap />
+              <VictoryBar
+                style={{
+                  data: { fill: color },
+                  labels: { fill: "white" }
+                }}
+                alignment="middle"
+                barRatio={0.9}
+                data={last30d}
+                x="time"
+                y="value"
+              />
+            </VictoryChart>
+          )}
         </View>
 
         {/* 12 months stats */}
@@ -214,25 +227,28 @@ class ViewThermo extends BaseThermo {
             </Text>
           </View>
         </View>
+
         <View pointerEvents="none">
-          <VictoryChart
-            height={200}
-            width={screenWidth}
-            minDomain={{ y: this.state.data.last_52w.reduce((prev, current) => (parseFloat(prev.value) < parseFloat(current.value)) ? prev : current, [{value: 0}]).value - 10 }}
-            domainPadding={{ x: 10 }}
-          >
-            <VictoryBar
-              style={{
-                data: { fill: color },
-                labels: { fill: "white" }
-              }}
-              alignment="middle"
-              barRatio={1.1}
-              data={this.state.data.last_52w}
-              x="time"
-              y="value"
-            />
-          </VictoryChart>
+          { last52w.length > 0 && (
+            <VictoryChart
+              height={200}
+              width={screenWidth}
+              minDomain={{ y: this.calculateMinDomain(last52w) }}
+              domainPadding={{ x: 10 }}
+            >
+              <VictoryBar
+                style={{
+                  data: { fill: color },
+                  labels: { fill: "white" }
+                }}
+                alignment="middle"
+                barRatio={1.1}
+                data={last52w}
+                x="time"
+                y="value"
+              />
+            </VictoryChart>
+          )}
         </View>
       </View>
     );
