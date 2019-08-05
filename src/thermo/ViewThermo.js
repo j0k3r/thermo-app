@@ -148,7 +148,10 @@ class ViewThermo extends BaseThermo {
             domainPadding={{ x: 10 }}
           >
             <VictoryAxis dependentAxis fixLabelOverlap />
-            <VictoryAxis fixLabelOverlap />
+            <VictoryAxis
+              fixLabelOverlap
+              tickFormat={(t) => t.toString().substring(0, 2)}
+            />
             <VictoryBar
               style={{
                 data: { fill: color },
