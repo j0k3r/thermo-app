@@ -5,7 +5,7 @@ import { withNavigation } from 'react-navigation';
 import ky from 'ky'
 import { AbortController, AbortSignal } from "abort-controller/dist/abort-controller"
 import format from 'date-fns/format'
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryLabel, VictoryTooltip } from 'victory-native';
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryLabel, VictoryTooltip, VictoryLine } from 'victory-native';
 import TimeAgo from '../TimeAgo'
 import BaseThermo from './BaseThermo'
 
@@ -23,8 +23,11 @@ class ViewThermo extends BaseThermo {
         min: null,
         min_date: null,
         last_24h: [],
+        mean__24h: null,
         last_30d: [],
+        mean__30d: null,
         last_52w: [],
+        mean__52w: null,
       },
       error: null,
     };
@@ -59,9 +62,16 @@ class ViewThermo extends BaseThermo {
       min,
       min_date: minDate,
       last_24h: last24h,
+      mean_24h: mean24h,
       last_30d: last30d,
+      mean_30d: mean30d,
       last_52w: last52w,
+      mean_52w: mean52w,
     } = this.state.data;
+
+    const line24h = last24h.map((item) => ({ time: item.time, value: parseFloat(mean24h) }))
+    const line30d = last30d.map((item) => ({ time: item.time, value: parseFloat(mean30d) }))
+    const line52w = last52w.map((item) => ({ time: item.time, value: parseFloat(mean52w) }))
 
     const styles = StyleSheet.create({
       container: {
@@ -143,7 +153,7 @@ class ViewThermo extends BaseThermo {
           <View style={ styles.column }>
             <Text>
               <Text>moyenne : </Text>
-              <Text style={{ fontWeight: 'bold' }}>{max && max.toFixed(1)}°C</Text>
+              <Text style={{ fontWeight: 'bold' }}>{mean24h}°C</Text>
             </Text>
           </View>
         </View>
@@ -173,6 +183,19 @@ class ViewThermo extends BaseThermo {
                 y="value"
                 labelComponent={<VictoryTooltip/>}
               />
+              <VictoryLine
+                style={{
+                  data: {
+                    opacity: 0.3,
+                    stroke: '#252525',
+                    strokeWidth: 1,
+                  }
+                }}
+                standalone={false}
+                data={line24h}
+                x="time"
+                y="value"
+              />
             </VictoryChart>
           )}
         </View>
@@ -185,7 +208,7 @@ class ViewThermo extends BaseThermo {
           <View style={ styles.column }>
             <Text>
               <Text>moyenne : </Text>
-              <Text style={{ fontWeight: 'bold' }}>{max && max.toFixed(1)}°C</Text>
+              <Text style={{ fontWeight: 'bold' }}>{mean30d}°C</Text>
             </Text>
           </View>
         </View>
@@ -211,6 +234,19 @@ class ViewThermo extends BaseThermo {
                 x="time"
                 y="value"
               />
+              <VictoryLine
+                style={{
+                  data: {
+                    opacity: 0.3,
+                    stroke: '#252525',
+                    strokeWidth: 1,
+                  }
+                }}
+                standalone={false}
+                data={line30d}
+                x="time"
+                y="value"
+              />
             </VictoryChart>
           )}
         </View>
@@ -223,7 +259,7 @@ class ViewThermo extends BaseThermo {
           <View style={ styles.column }>
             <Text>
               <Text>moyenne : </Text>
-              <Text style={{ fontWeight: 'bold' }}>{max && max.toFixed(1)}°C</Text>
+              <Text style={{ fontWeight: 'bold' }}>{mean52w}°C</Text>
             </Text>
           </View>
         </View>
@@ -244,6 +280,19 @@ class ViewThermo extends BaseThermo {
                 alignment="middle"
                 barRatio={1.1}
                 data={last52w}
+                x="time"
+                y="value"
+              />
+              <VictoryLine
+                style={{
+                  data: {
+                    opacity: 0.3,
+                    stroke: '#252525',
+                    strokeWidth: 1,
+                  }
+                }}
+                standalone={false}
+                data={line52w}
                 x="time"
                 y="value"
               />
