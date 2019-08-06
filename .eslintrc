@@ -1,0 +1,12 @@
+{
+  "extends": [
+    "20minutes"
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".json", ".native.js"]
+      }
+    }
+  }
+}

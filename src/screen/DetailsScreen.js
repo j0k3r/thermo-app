@@ -1,22 +1,22 @@
-import React, { Component } from 'react';
-import { SafeAreaView, Text, ScrollView } from 'react-native';
+import React, { Component } from 'react'
+import { SafeAreaView, Text, ScrollView } from 'react-native'
 import ViewThermo from '../thermo/ViewThermo'
 
 class DetailsScreen extends Component {
-  static navigationOptions = ({ navigation }) => {
-    return {
-      headerTitle: <Text>
-          <Text style={{ color: 'black', fontWeight: '200', fontSize: 28 }}>Thermo </Text>
-          <Text style={{ color: 'black', fontWeight: '400', fontSize: 28 }}>{navigation.getParam('label')}</Text>
-        </Text>,
-      headerStyle: {
-        backgroundColor: navigation.getParam('color'),
-      },
-      headerTitleStyle: {
-        fontSize: 20
-      }
-    };
-  };
+  static navigationOptions = ({ navigation }) => ({
+    headerTitle:
+  <Text>
+    <Text style={{ color: 'black', fontWeight: '200', fontSize: 28 }}>Thermo </Text>
+    <Text style={{ color: 'black', fontWeight: '400', fontSize: 28 }}>{navigation.getParam('label')}</Text>
+  </Text>,
+    headerStyle: {
+      backgroundColor: navigation.getParam('color'),
+    },
+    headerTitleStyle: {
+      fontSize: 20,
+    },
+    headerRight: <Text>{navigation.getParam('last_battery')}</Text>,
+  })
 
   render() {
     return (
@@ -26,8 +26,8 @@ class DetailsScreen extends Component {
           <ViewThermo />
         </SafeAreaView>
       </ScrollView>
-    );
+    )
   }
 }
 
-export default DetailsScreen;
+export default DetailsScreen

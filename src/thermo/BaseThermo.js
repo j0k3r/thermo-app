@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import { Component } from 'react'
 import ky from 'ky'
-import { AbortController, AbortSignal } from "abort-controller/dist/abort-controller"
-import * as config from "../../config";
+import { AbortController } from 'abort-controller/dist/abort-controller'
+import * as config from '../../config'
 
 class BaseThermo extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       fetchedAtLeastOnce: false,
@@ -13,71 +13,74 @@ class BaseThermo extends Component {
       refreshing: false,
       data: [],
       error: null,
-    };
+    }
 
     // used to abort request in case of leaving the component before the request has finish
-    this.controller = new AbortController();
+    this.controller = new AbortController()
+
+    // to ensure we can call this.setState safely
+    this.onRefresh = this.onRefresh.bind(this)
   }
 
   async componentDidMount() {
-    await this._fetchInitialData();
+    await this.fetchInitialData()
   }
 
   async componentWillUnmount() {
-    this.controller.abort();
+    this.controller.abort()
   }
 
-  _fetchData = async () => {
-    const { signal } = this.controller;
-
-    return ky.get(
-      `${config.API_URL}${this.api_path}`,
-      {
-        timeout: 10000,
-        signal,
-      }
-    ).json();
-  }
-
-  _fetchInitialData = async () => {
-    this.setState({ loading: true });
+  async onRefresh() {
+    this.setState({ refreshing: true })
 
     try {
-      const res = await this._fetchData();
-
-      this.setState({
-        data: res,
-        error: null,
-        loading: false,
-        fetchedAtLeastOnce: true,
-      });
-    } catch (error) {
-      this.setState({
-        error,
-        loading: false
-      });
-    }
-  };
-
-  _onRefresh = async () => {
-    this.setState({refreshing: true});
-
-    try {
-      const res = await this._fetchData();
+      const res = await this.fetchData()
 
       this.setState({
         data: res,
         error: null,
         refreshing: false,
         fetchedAtLeastOnce: true,
-      });
+      })
     } catch (error) {
       this.setState({
         error,
-        refreshing: false
-      });
+        refreshing: false,
+      })
+    }
+  }
+
+  async fetchData() {
+    const { signal } = this.controller
+
+    return ky.get(
+      `${config.API_URL}${this.api_path}`,
+      {
+        timeout: 10000,
+        signal,
+      },
+    ).json()
+  }
+
+  async fetchInitialData() {
+    this.setState({ loading: true })
+
+    try {
+      const res = await this.fetchData()
+
+      this.setState({
+        data: res,
+        error: null,
+        loading: false,
+        fetchedAtLeastOnce: true,
+      })
+    } catch (error) {
+      this.setState({
+        error,
+        loading: false,
+      })
     }
   }
 }
 
-export default BaseThermo;
+export default BaseThermo

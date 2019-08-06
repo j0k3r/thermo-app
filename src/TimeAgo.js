@@ -1,68 +1,68 @@
-import React, { Component } from 'react';
-import { Text } from 'react-native';
-import PropTypes from 'prop-types';
-import { format, render, cancel, register } from 'timeago.js';
+import React, { Component } from 'react'
+import { Text } from 'react-native'
+import PropTypes from 'prop-types'
+import { format, register } from 'timeago.js'
 import fr from 'timeago.js/lib/lang/fr'
 
 class TimeAgo extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       timer: null,
-    };
+    }
   }
 
   componentDidMount() {
     // to be able to have french translation with "timeago"
-    register('fr', fr);
+    register('fr', fr)
 
-    this.createTimer();
+    this.createTimer()
   }
-
-  createTimer = () => {
-    this.setState({
-      timer: setTimeout(() => {
-        this.update();
-      }, this.props.interval)
-    });
-  };
 
   componentWillUnmount() {
-    clearTimeout(this.state.timer);
+    const { timer } = this.state
+
+    clearTimeout(timer)
   }
 
-  update = () => {
+  createTimer() {
+    const { interval } = this.props
+
+    this.setState({
+      timer: setTimeout(() => {
+        this.update()
+      }, interval),
+    })
+  }
+
+  update() {
     // force component to re-render
-    this.forceUpdate();
-    this.createTimer();
-  };
+    this.forceUpdate()
+    this.createTimer()
+  }
 
   render() {
-    const { datetime, locale, style } = this.props;
+    const { datetime, locale, style } = this.props
 
     return (
-      <Text style={style}>
-        {format(datetime, locale)}
-      </Text>
-    );
+      <Text style={style}>{format(datetime, locale)}</Text>
+    )
   }
-};
+}
 
 TimeAgo.propTypes = {
-  datetime: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.instanceOf(Date),
-    PropTypes.number
-  ]).isRequired,
+  datetime: PropTypes.oneOfType([PropTypes.string, PropTypes.instanceOf(Date), PropTypes.number])
+    .isRequired,
   locale: PropTypes.string,
   interval: PropTypes.number,
-  style: PropTypes.object,
-};
+  style: PropTypes.objectOf(PropTypes.any),
+}
 
 TimeAgo.defaultProps = {
   interval: 60000,
-  locale: 'fr'
-};
+  locale: 'fr',
+  style: {},
+}
 
-export default TimeAgo;
+export default TimeAgo

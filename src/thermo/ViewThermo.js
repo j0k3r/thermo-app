@@ -1,17 +1,22 @@
-import React from 'react';
-import { View, Text, ActivityIndicator, StyleSheet, Dimensions } from 'react-native';
-import { ListItem } from 'react-native-elements';
-import { withNavigation } from 'react-navigation';
-import ky from 'ky'
-import { AbortController, AbortSignal } from "abort-controller/dist/abort-controller"
+import React from 'react'
+import {
+  View, Text, StyleSheet, Dimensions,
+} from 'react-native'
+import { withNavigation } from 'react-navigation'
 import format from 'date-fns/format'
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryLabel, VictoryTooltip, VictoryLine } from 'victory-native';
+import {
+  VictoryBar,
+  VictoryChart,
+  VictoryAxis,
+  VictoryTooltip,
+  VictoryLine,
+} from 'victory-native'
 import TimeAgo from '../TimeAgo'
 import BaseThermo from './BaseThermo'
 
 class ViewThermo extends BaseThermo {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       fetchedAtLeastOnce: false,
@@ -30,17 +35,20 @@ class ViewThermo extends BaseThermo {
         mean__52w: null,
       },
       error: null,
-    };
+    }
   }
 
   async componentDidMount() {
     this.api_path = `/thermo/${this.props.navigation.getParam('mac')}/detail`
 
-    await this._fetchInitialData();
+    await this.fetchInitialData()
   }
 
-  calculateMinDomain(data) {
-    const reduced = data.reduce((prev, current) => (parseFloat(prev.value) < parseFloat(current.value)) ? prev : current, [{value: 0}])
+  static calculateMinDomain(data) {
+    const reduced = data.reduce(
+      (prev, current) => (parseFloat(prev.value) < parseFloat(current.value) ? prev : current),
+      [{ value: 0 }],
+    )
 
     return reduced.value - 2
   }
@@ -52,9 +60,8 @@ class ViewThermo extends BaseThermo {
     const { navigation } = this.props
 
     const color = navigation.getParam('color')
-    const last_update = navigation.getParam('last_update')
-    const last_battery = navigation.getParam('last_battery')
-    const last_temperature = navigation.getParam('last_temperature')
+    const lastUpdate = navigation.getParam('last_update')
+    const lastTemperature = navigation.getParam('last_temperature')
 
     const {
       max,
@@ -67,11 +74,11 @@ class ViewThermo extends BaseThermo {
       mean_30d: mean30d,
       last_52w: last52w,
       mean_52w: mean52w,
-    } = this.state.data;
+    } = this.state.data
 
-    const line24h = last24h.map((item) => ({ time: item.time, value: parseFloat(mean24h) }))
-    const line30d = last30d.map((item) => ({ time: item.time, value: parseFloat(mean30d) }))
-    const line52w = last52w.map((item) => ({ time: item.time, value: parseFloat(mean52w) }))
+    const line24h = last24h.map(item => ({ time: item.time, value: parseFloat(mean24h) }))
+    const line30d = last30d.map(item => ({ time: item.time, value: parseFloat(mean30d) }))
+    const line52w = last52w.map(item => ({ time: item.time, value: parseFloat(mean52w) }))
 
     const styles = StyleSheet.create({
       container: {
@@ -82,106 +89,109 @@ class ViewThermo extends BaseThermo {
       bigDate: {
         marginTop: 58,
         fontSize: 16,
-        fontWeight: '100'
+        fontWeight: '100',
       },
       bigCircle: {
         backgroundColor: color,
         borderRadius: 110,
         height: 220,
         width: 220,
-        alignItems: 'center'
+        alignItems: 'center',
       },
       bigTemperature: {
         fontSize: 72,
-        fontWeight: '100'
+        fontWeight: '100',
       },
       row30: {
-        flexDirection: "row",
-        marginTop: 30
+        flexDirection: 'row',
+        marginTop: 30,
       },
       row50: {
-        flexDirection: "row",
-        marginTop: 50
+        flexDirection: 'row',
+        marginTop: 50,
       },
       minMaxDate: {
         marginTop: 3,
-        fontWeight: '100'
+        fontWeight: '100',
       },
       minMaxTemperature: {
         fontSize: 35,
-        fontWeight: '200'
+        fontWeight: '200',
       },
       column: {
         flex: 1,
-        alignItems: 'center'
-      }
-    });
+        alignItems: 'center',
+      },
+    })
 
     return (
-      <View style={ styles.container }>
+      <View style={styles.container}>
         {/* Display big current temperature */}
-        <View style={ styles.bigCircle }>
-          <TimeAgo style={ styles.bigDate } datetime={last_update || (new Date())} />
-          <Text style={ styles.bigTemperature }>
-            {last_temperature.toFixed(1)}°C
+        <View style={styles.bigCircle}>
+          <TimeAgo style={styles.bigDate} datetime={lastUpdate || new Date()} />
+          <Text style={styles.bigTemperature}>
+            {lastTemperature.toFixed(1)}
+            °C
           </Text>
         </View>
 
         {/* Display min & max temperature */}
-        <View style={ styles.row30 }>
-          <View style={ styles.column }>
+        <View style={styles.row30}>
+          <View style={styles.column}>
             <Text>minimale</Text>
-            <Text style={ styles.minMaxTemperature }>
-              {min && min.toFixed(1)}°C
+            <Text style={styles.minMaxTemperature}>
+              {min && min.toFixed(1)}
+              °C
             </Text>
-            <Text style={ styles.minMaxDate }>{minDate && format(minDate, 'DD/MM/YY HH:mm')}</Text>
+            <Text style={styles.minMaxDate}>{minDate && format(minDate, 'DD/MM/YY HH:mm')}</Text>
           </View>
-          <View style={ styles.column }>
+          <View style={styles.column}>
             <Text>maximale</Text>
-            <Text style={ styles.minMaxTemperature }>
-              {min && max.toFixed(1)}°C
+            <Text style={styles.minMaxTemperature}>
+              {min && max.toFixed(1)}
+              °C
             </Text>
-            <Text style={ styles.minMaxDate }>{maxDate && format(maxDate, 'DD/MM/YY HH:mm')}</Text>
+            <Text style={styles.minMaxDate}>{maxDate && format(maxDate, 'DD/MM/YY HH:mm')}</Text>
           </View>
         </View>
 
         {/* 24h stats */}
-        <View style={ styles.row50 }>
-          <View style={ styles.column }>
+        <View style={styles.row50}>
+          <View style={styles.column}>
             <Text>dernières 24h</Text>
           </View>
-          <View style={ styles.column }>
+          <View style={styles.column}>
             <Text>
               <Text>moyenne : </Text>
-              <Text style={{ fontWeight: 'bold' }}>{mean24h}°C</Text>
+              <Text style={{ fontWeight: 'bold' }}>
+                {mean24h}
+                °C
+              </Text>
             </Text>
           </View>
         </View>
 
         <View pointerEvents="none">
-          { last24h.length > 0 && (
+          {last24h.length > 0 && (
             <VictoryChart
               height={200}
               width={screenWidth}
-              minDomain={{ y: this.calculateMinDomain(last24h) }}
+              minDomain={{ y: ViewThermo.calculateMinDomain(last24h) }}
               domainPadding={{ x: 10 }}
             >
               <VictoryAxis dependentAxis fixLabelOverlap />
-              <VictoryAxis
-                fixLabelOverlap
-                tickFormat={(t) => t.toString().substring(0, 2)}
-              />
+              <VictoryAxis fixLabelOverlap tickFormat={t => t.toString().substring(0, 2)} />
               <VictoryBar
                 style={{
                   data: { fill: color },
-                  labels: { fill: "white" }
+                  labels: { fill: 'white' },
                 }}
                 alignment="middle"
                 barRatio={0.8}
                 data={last24h}
                 x="time"
                 y="value"
-                labelComponent={<VictoryTooltip/>}
+                labelComponent={<VictoryTooltip />}
               />
               <VictoryLine
                 style={{
@@ -189,7 +199,7 @@ class ViewThermo extends BaseThermo {
                     opacity: 0.3,
                     stroke: '#252525',
                     strokeWidth: 1,
-                  }
+                  },
                 }}
                 standalone={false}
                 data={line24h}
@@ -201,24 +211,27 @@ class ViewThermo extends BaseThermo {
         </View>
 
         {/* 30 days stats */}
-        <View style={ styles.row30 }>
-          <View style={ styles.column }>
+        <View style={styles.row30}>
+          <View style={styles.column}>
             <Text>30 derniers jours</Text>
           </View>
-          <View style={ styles.column }>
+          <View style={styles.column}>
             <Text>
               <Text>moyenne : </Text>
-              <Text style={{ fontWeight: 'bold' }}>{mean30d}°C</Text>
+              <Text style={{ fontWeight: 'bold' }}>
+                {mean30d}
+                °C
+              </Text>
             </Text>
           </View>
         </View>
 
         <View pointerEvents="none">
-          { last30d.length > 0 && (
+          {last30d.length > 0 && (
             <VictoryChart
               height={200}
               width={screenWidth}
-              minDomain={{ y: this.calculateMinDomain(last30d) }}
+              minDomain={{ y: ViewThermo.calculateMinDomain(last30d) }}
               domainPadding={{ x: 10 }}
             >
               <VictoryAxis dependentAxis fixLabelOverlap />
@@ -226,7 +239,7 @@ class ViewThermo extends BaseThermo {
               <VictoryBar
                 style={{
                   data: { fill: color },
-                  labels: { fill: "white" }
+                  labels: { fill: 'white' },
                 }}
                 alignment="middle"
                 barRatio={0.9}
@@ -240,7 +253,7 @@ class ViewThermo extends BaseThermo {
                     opacity: 0.3,
                     stroke: '#252525',
                     strokeWidth: 1,
-                  }
+                  },
                 }}
                 standalone={false}
                 data={line30d}
@@ -252,30 +265,33 @@ class ViewThermo extends BaseThermo {
         </View>
 
         {/* 12 months stats */}
-        <View style={ styles.row30 }>
-          <View style={ styles.column }>
+        <View style={styles.row30}>
+          <View style={styles.column}>
             <Text>12 derniers mois</Text>
           </View>
-          <View style={ styles.column }>
+          <View style={styles.column}>
             <Text>
               <Text>moyenne : </Text>
-              <Text style={{ fontWeight: 'bold' }}>{mean52w}°C</Text>
+              <Text style={{ fontWeight: 'bold' }}>
+                {mean52w}
+                °C
+              </Text>
             </Text>
           </View>
         </View>
 
         <View pointerEvents="none">
-          { last52w.length > 0 && (
+          {last52w.length > 0 && (
             <VictoryChart
               height={200}
               width={screenWidth}
-              minDomain={{ y: this.calculateMinDomain(last52w) }}
+              minDomain={{ y: ViewThermo.calculateMinDomain(last52w) }}
               domainPadding={{ x: 10 }}
             >
               <VictoryBar
                 style={{
                   data: { fill: color },
-                  labels: { fill: "white" }
+                  labels: { fill: 'white' },
                 }}
                 alignment="middle"
                 barRatio={1.1}
@@ -289,7 +305,7 @@ class ViewThermo extends BaseThermo {
                     opacity: 0.3,
                     stroke: '#252525',
                     strokeWidth: 1,
-                  }
+                  },
                 }}
                 standalone={false}
                 data={line52w}
@@ -300,8 +316,8 @@ class ViewThermo extends BaseThermo {
           )}
         </View>
       </View>
-    );
+    )
   }
 }
 
-export default withNavigation(ViewThermo);
+export default withNavigation(ViewThermo)
