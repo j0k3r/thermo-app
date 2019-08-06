@@ -42,7 +42,7 @@ class ViewThermo extends BaseThermo {
   calculateMinDomain(data) {
     const reduced = data.reduce((prev, current) => (parseFloat(prev.value) < parseFloat(current.value)) ? prev : current, [{value: 0}])
 
-    return reduced.value - 10
+    return reduced.value - 2
   }
 
   render() {
