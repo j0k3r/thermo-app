@@ -80,6 +80,13 @@ class ViewThermo extends BaseThermo {
     const line30d = last30d.map(item => ({ time: item.time, value: parseFloat(mean30d) }))
     const line52w = last52w.map(item => ({ time: item.time, value: parseFloat(mean52w) }))
 
+    // in case the latest value from API is null
+    // happend when it's 22h34 and the last value is from 22h13, so API return null for 22h30
+    const testingLast24h = [...last24h]
+    if (testingLast24h.length > 0 && testingLast24h.pop().value === null) {
+      last24h.pop()
+    }
+
     const styles = StyleSheet.create({
       container: {
         flex: 1,
