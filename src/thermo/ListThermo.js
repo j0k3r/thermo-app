@@ -11,7 +11,7 @@ class ListThermo extends BaseThermo {
   constructor(props) {
     super(props);
 
-    this.url = 'http://192.168.42.26:4730/thermo/list'
+    this.api_path = '/thermo/list'
   }
 
   render() {

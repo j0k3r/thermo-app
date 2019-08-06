@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ky from 'ky'
 import { AbortController, AbortSignal } from "abort-controller/dist/abort-controller"
+import * as config from "../../config";
 
 class BaseThermo extends Component {
   constructor(props) {
@@ -30,7 +31,7 @@ class BaseThermo extends Component {
     const { signal } = this.controller;
 
     return ky.get(
-      this.url,
+      `${config.API_URL}${this.api_path}`,
       {
         timeout: 10000,
         signal,

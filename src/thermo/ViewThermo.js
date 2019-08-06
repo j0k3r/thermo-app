@@ -34,7 +34,7 @@ class ViewThermo extends BaseThermo {
   }
 
   async componentDidMount() {
-    this.url = `http://192.168.42.26:4730/thermo/${this.props.navigation.getParam('mac')}/detail`
+    this.api_path = `/thermo/${this.props.navigation.getParam('mac')}/detail`
 
     await this._fetchInitialData();
   }
