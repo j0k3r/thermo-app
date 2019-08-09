@@ -2,6 +2,7 @@
   "expo": {
     "name": "Thermo",
     "slug": "thermo",
+    "version": "1.0.0",
     "privacy": "unlisted",
     "sdkVersion": "34.0.0",
     "platforms": [
@@ -22,7 +23,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "net.j0k3r.thermo"
     },
     "description": "",
     "githubUrl": "https://github.com/j0k3r/thermo"
