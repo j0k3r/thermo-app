@@ -29,7 +29,10 @@ class ListThermo extends BaseThermo {
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
           <Text>Error while trying to retrieve data</Text>
           <Button title="Retry" onPress={this.fetchInitialData} />
-          <DropdownAlert ref={ref => (this.dropDownAlertRef = ref)} />
+          <DropdownAlert
+            // eslint-disable-next-line no-return-assign
+            ref={ref => (this.dropDownAlertRef = ref)}
+          />
         </View>
       )
     }
@@ -92,7 +95,10 @@ class ListThermo extends BaseThermo {
           )}
           keyExtractor={item => item.mac}
         />
-        <DropdownAlert ref={ref => (this.dropDownAlertRef = ref)} />
+        <DropdownAlert
+          // eslint-disable-next-line no-return-assign
+          ref={ref => (this.dropDownAlertRef = ref)}
+        />
       </View>
     )
   }

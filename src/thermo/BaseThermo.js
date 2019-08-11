@@ -3,6 +3,8 @@ import ky from 'ky'
 import { AbortController } from 'abort-controller/dist/abort-controller'
 import * as config from '../../config'
 
+/* eslint-disable react/no-unused-state */
+// TODO: find a better way to make parent / children component
 class BaseThermo extends Component {
   constructor(props) {
     super(props)
