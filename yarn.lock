@@ -4955,10 +4955,10 @@ react-native-branch@~3.0.1:
   resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-3.0.1.tgz#5b07b61cbd290168cd3c3662e017ebe0f356d2ca"
   integrity sha512-vbcYxPZlpF5f39GAEUF8kuGQqCNeD3E6zEdvtOq8oCGZunHXlWlKgAS6dgBKCvsHvXgHuMtpvs39VgOp8DaKig==
 
-react-native-dropdownalert@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/react-native-dropdownalert/-/react-native-dropdownalert-4.1.0.tgz#920875321dc0f7b0cea4886340a05c236cab9440"
-  integrity sha512-u/hBcpZ1mbkNIm4gTmnheZIJOm/46TtrHMRxi3zKInO6Kn0NZT25L21wQt+2VWEJimQe8RleV5rQ1ml7Sd36aw==
+react-native-dropdownalert@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-dropdownalert/-/react-native-dropdownalert-4.2.0.tgz#b7f418b6954058b0c822d8b49e87fa86ccbb6f1a"
+  integrity sha512-zz2W2t6UN6C/CM/z7VTEuvOTDQad8b5KBBL4YDpkdJKI9HOgLsTs0eIkZsXW2woEyp8Bj0SGpovSmf3SX756lg==
   dependencies:
     prop-types "15.5.10"
 
