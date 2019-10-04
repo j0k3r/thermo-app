@@ -31,7 +31,7 @@ class ListThermo extends BaseThermo {
           <Button title="Retry" onPress={this.fetchInitialData} />
           <DropdownAlert
             // eslint-disable-next-line no-return-assign
-            ref={ref => (this.dropDownAlertRef = ref)}
+            ref={(ref) => (this.dropDownAlertRef = ref)}
           />
         </View>
       )
@@ -93,11 +93,11 @@ class ListThermo extends BaseThermo {
               )}
             />
           )}
-          keyExtractor={item => item.mac}
+          keyExtractor={(item) => item.mac}
         />
         <DropdownAlert
           // eslint-disable-next-line no-return-assign
-          ref={ref => (this.dropDownAlertRef = ref)}
+          ref={(ref) => (this.dropDownAlertRef = ref)}
         />
       </View>
     )
