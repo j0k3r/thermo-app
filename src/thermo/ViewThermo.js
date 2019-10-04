@@ -76,9 +76,9 @@ class ViewThermo extends BaseThermo {
       mean_52w: mean52w,
     } = this.state.data
 
-    const line24h = last24h.map(item => ({ time: item.time, value: parseFloat(mean24h) }))
-    const line30d = last30d.map(item => ({ time: item.time, value: parseFloat(mean30d) }))
-    const line52w = last52w.map(item => ({ time: item.time, value: parseFloat(mean52w) }))
+    const line24h = last24h.map((item) => ({ time: item.time, value: parseFloat(mean24h) }))
+    const line30d = last30d.map((item) => ({ time: item.time, value: parseFloat(mean30d) }))
+    const line52w = last52w.map((item) => ({ time: item.time, value: parseFloat(mean52w) }))
 
     // in case the latest value from API is null
     // happend when it's 22h34 and the last value is from 22h13, so API return null for 22h30
@@ -187,7 +187,7 @@ class ViewThermo extends BaseThermo {
               domainPadding={{ x: 10 }}
             >
               <VictoryAxis dependentAxis fixLabelOverlap />
-              <VictoryAxis fixLabelOverlap tickFormat={t => t.toString().substring(0, 2)} />
+              <VictoryAxis fixLabelOverlap tickFormat={(t) => t.toString().substring(0, 2)} />
               <VictoryBar
                 style={{
                   data: { fill: color },
