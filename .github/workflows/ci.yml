@@ -23,10 +23,15 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: install, build and test
-      run: |
-        yarn install
-        yarn lint
+    - name: setup
+      run: cp config.js.dist config.js
+    - name: install
+      run: yarn install
+      env:
+        CI: true
+        TZ: 'Europe/Paris'
+    - name: lint
+      run: yarn lint
       env:
         CI: true
         TZ: 'Europe/Paris'
