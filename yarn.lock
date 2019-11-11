@@ -5252,10 +5252,10 @@ react-native-status-bar-height@^2.2.0:
   resolved "https://registry.yarnpkg.com/react-native-status-bar-height/-/react-native-status-bar-height-2.4.0.tgz#de8cee4bb733a196167210d2d0bc1fa10acba3e3"
   integrity sha512-pWvZFlyIHiuxLugLioq97vXiaGSovFXEyxt76wQtbq0gxv4dGXMPqYow46UmpwOgeJpBhqL1E0EKxnfJRrFz5w==
 
-react-native-svg@^9.13.2:
-  version "9.13.2"
-  resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-9.13.2.tgz#72a2e089f69af99c491586a95baf71009c263a51"
-  integrity sha512-l73+7X4mDYQBHilJ0UzFph4QmuvkngtJrfUiyLZwNLzX4T6gjyjAC2im+JNHhY7i4tU4k+I74YSCFiC7OB85Pw==
+react-native-svg@^9.13.3:
+  version "9.13.3"
+  resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-9.13.3.tgz#6414b337d55af169ac2487ab70f3108404434446"
+  integrity sha512-H50b2m4jvrQ7KxKs8uYSuWecr6e5XC7BDfS7DaA96+0Owjh0C9DksI5l8SRyHnmE+emiYMPu6Qqfr9dCyKkaJQ==
   dependencies:
     css-select "^2.0.2"
     css-tree "^1.0.0-alpha.37"
