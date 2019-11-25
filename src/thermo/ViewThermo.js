@@ -3,7 +3,7 @@ import {
   View, Text, StyleSheet, Dimensions,
 } from 'react-native'
 import { withNavigation } from 'react-navigation'
-import format from 'date-fns/format'
+import dayjs from 'dayjs'
 import {
   VictoryBar,
   VictoryChart,
@@ -150,7 +150,7 @@ class ViewThermo extends BaseThermo {
               {min && min.toFixed(1)}
               °C
             </Text>
-            <Text style={styles.minMaxDate}>{minDate && format(minDate, 'DD/MM/YY HH:mm')}</Text>
+            <Text style={styles.minMaxDate}>{minDate && dayjs(minDate).format('DD/MM/YY HH:mm')}</Text>
           </View>
           <View style={styles.column}>
             <Text>maximale</Text>
@@ -158,7 +158,7 @@ class ViewThermo extends BaseThermo {
               {min && max.toFixed(1)}
               °C
             </Text>
-            <Text style={styles.minMaxDate}>{maxDate && format(maxDate, 'DD/MM/YY HH:mm')}</Text>
+            <Text style={styles.minMaxDate}>{maxDate && dayjs(maxDate).format('DD/MM/YY HH:mm')}</Text>
           </View>
         </View>
 
