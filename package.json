@@ -27,7 +27,7 @@
     "react-navigation": "^4.0.10",
     "react-navigation-stack": "^1.7.3",
     "timeago.js": "^4.0.1",
-    "victory-native": "^32.0.2"
+    "victory-native": "^33.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.7.4",
