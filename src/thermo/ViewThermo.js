@@ -28,11 +28,17 @@ class ViewThermo extends BaseThermo {
         min: null,
         min_date: null,
         last_24h: [],
-        mean__24h: null,
+        mean_24h: null,
+        max_24h: null,
+        min_24h: null,
         last_30d: [],
-        mean__30d: null,
+        mean_30d: null,
+        max_30d: null,
+        min_30d: null,
         last_52w: [],
-        mean__52w: null,
+        mean_52w: null,
+        max_52w: null,
+        min_52w: null,
       },
       error: null,
     }
@@ -70,10 +76,16 @@ class ViewThermo extends BaseThermo {
       min_date: minDate,
       last_24h: last24h,
       mean_24h: mean24h,
+      max_24h: max24h,
+      min_24h: min24h,
       last_30d: last30d,
       mean_30d: mean30d,
+      max_30d: max30d,
+      min_30d: min30d,
       last_52w: last52w,
       mean_52w: mean52w,
+      max_52w: max52w,
+      min_52w: min52w,
     } = this.state.data
 
     const line24h = last24h.map((item) => ({ time: item.time, value: parseFloat(mean24h) }))
@@ -166,12 +178,26 @@ class ViewThermo extends BaseThermo {
         <View style={styles.row50}>
           <View style={styles.column}>
             <Text>dernières 24h</Text>
-          </View>
-          <View style={styles.column}>
             <Text>
               <Text>moyenne : </Text>
               <Text style={{ fontWeight: 'bold' }}>
                 {mean24h}
+                °C
+              </Text>
+            </Text>
+          </View>
+          <View style={styles.column}>
+            <Text>
+              <Text>minimale : </Text>
+              <Text style={{ fontWeight: 'bold' }}>
+                {min24h}
+                °C
+              </Text>
+            </Text>
+            <Text>
+              <Text>maximale : </Text>
+              <Text style={{ fontWeight: 'bold' }}>
+                {max24h}
                 °C
               </Text>
             </Text>
@@ -221,12 +247,26 @@ class ViewThermo extends BaseThermo {
         <View style={styles.row30}>
           <View style={styles.column}>
             <Text>30 derniers jours</Text>
-          </View>
-          <View style={styles.column}>
             <Text>
               <Text>moyenne : </Text>
               <Text style={{ fontWeight: 'bold' }}>
                 {mean30d}
+                °C
+              </Text>
+            </Text>
+          </View>
+          <View style={styles.column}>
+            <Text>
+              <Text>minimale : </Text>
+              <Text style={{ fontWeight: 'bold' }}>
+                {min30d}
+                °C
+              </Text>
+            </Text>
+            <Text>
+              <Text>maximale : </Text>
+              <Text style={{ fontWeight: 'bold' }}>
+                {max30d}
                 °C
               </Text>
             </Text>
@@ -275,12 +315,26 @@ class ViewThermo extends BaseThermo {
         <View style={styles.row30}>
           <View style={styles.column}>
             <Text>12 derniers mois</Text>
-          </View>
-          <View style={styles.column}>
             <Text>
               <Text>moyenne : </Text>
               <Text style={{ fontWeight: 'bold' }}>
                 {mean52w}
+                °C
+              </Text>
+            </Text>
+          </View>
+          <View style={styles.column}>
+            <Text>
+              <Text>minimale : </Text>
+              <Text style={{ fontWeight: 'bold' }}>
+                {min52w}
+                °C
+              </Text>
+            </Text>
+            <Text>
+              <Text>maximale : </Text>
+              <Text style={{ fontWeight: 'bold' }}>
+                {max52w}
                 °C
               </Text>
             </Text>
