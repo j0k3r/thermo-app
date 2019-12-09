@@ -30,7 +30,7 @@
     "victory-native": "^32.0.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.4",
+    "@babel/core": "^7.7.5",
     "@babel/plugin-proposal-decorators": "^7.7.4",
     "babel-eslint": "^10.0.2",
     "babel-preset-expo": "^7.0.0",
