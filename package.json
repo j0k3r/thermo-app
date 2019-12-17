@@ -11,7 +11,7 @@
   "dependencies": {
     "abort-controller": "^3.0.0",
     "dayjs": "^1.8.17",
-    "expo": "^35.0.0",
+    "expo": "^36.0.1",
     "ky": "^0.16.1",
     "prop-types": "^15.7.2",
     "react": "16.8.3",
