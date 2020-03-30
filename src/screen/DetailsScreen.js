@@ -16,6 +16,8 @@ class DetailsScreen extends Component {
     headerTitleStyle: {
       fontSize: 20,
     },
+    // force left arrow to always be black no matter the theme (dark / light)
+    headerTintColor: '#000',
     headerRight: <Text>{`${navigation.getParam('last_battery')} %`}</Text>,
   })
 
