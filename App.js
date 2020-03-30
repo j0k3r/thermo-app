@@ -1,10 +1,23 @@
+import React from 'react'
 import { createAppContainer } from 'react-navigation'
 import { createStackNavigator } from 'react-navigation-stack'
 import { enableScreens } from 'react-native-screens'
+import { AppearanceProvider, useColorScheme } from 'react-native-appearance'
 import HomeScreen from './src/screen/HomeScreen'
 import DetailsScreen from './src/screen/DetailsScreen'
 
 enableScreens()
+
+const stackDefaultNavigationOptions = ({ theme }) => ({
+  headerStyle: {
+    backgroundColor: theme === 'light' ? '#dedede' : '#3d3d3d',
+  },
+  headerTintColor: theme === 'light' ? '#000' : '#dedede',
+  headerTitleStyle: {
+    fontWeight: '300',
+    fontSize: 30,
+  },
+})
 
 const RootStack = createStackNavigator(
   {
@@ -13,17 +26,18 @@ const RootStack = createStackNavigator(
   },
   {
     initialRouteName: 'Home',
-    defaultNavigationOptions: {
-      headerStyle: {
-        backgroundColor: '#ECEFF0',
-      },
-      headerTintColor: '#000',
-      headerTitleStyle: {
-        fontWeight: '300',
-        fontSize: 30,
-      },
-    },
+    defaultNavigationOptions: stackDefaultNavigationOptions,
   },
 )
 
-export default createAppContainer(RootStack)
+const Navigation = createAppContainer(RootStack)
+
+export default () => {
+  const theme = useColorScheme()
+
+  return (
+    <AppearanceProvider>
+      <Navigation theme={theme} />
+    </AppearanceProvider>
+  )
+}

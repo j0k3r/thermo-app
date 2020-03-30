@@ -2,7 +2,7 @@ import React from 'react'
 import {
   View, Text, StyleSheet, Dimensions,
 } from 'react-native'
-import { withNavigation } from 'react-navigation'
+import { withNavigation, ThemeContext } from 'react-navigation'
 import dayjs from 'dayjs'
 import {
   VictoryBar,
@@ -143,240 +143,278 @@ class ViewThermo extends BaseThermo {
       },
     })
 
+    const textStyles = {
+      dark: '#dedede',
+      light: '#3d3d3d',
+    }
+
     return (
-      <View style={styles.container}>
-        {/* Display big current temperature */}
-        <View style={styles.bigCircle}>
-          <TimeAgo style={styles.bigDate} datetime={lastUpdate || new Date()} />
-          <Text style={styles.bigTemperature}>
-            {lastTemperature.toFixed(1)}
-            °C
-          </Text>
-        </View>
+      <ThemeContext.Consumer>
+        {(theme) => (
+          <View style={styles.container}>
+            {/* Display big current temperature */}
+            <View style={styles.bigCircle}>
+              <TimeAgo style={styles.bigDate} datetime={lastUpdate || new Date()} />
+              <Text style={styles.bigTemperature}>
+                {lastTemperature.toFixed(1)}
+                °C
+              </Text>
+            </View>
 
-        {/* Display min & max temperature */}
-        <View style={styles.row30}>
-          <View style={styles.column}>
-            <Text>minimale</Text>
-            <Text style={styles.minMaxTemperature}>
-              {min && min.toFixed(1)}
-              °C
-            </Text>
-            <Text style={styles.minMaxDate}>{minDate && dayjs(minDate).format('DD/MM/YY HH:mm')}</Text>
-          </View>
-          <View style={styles.column}>
-            <Text>maximale</Text>
-            <Text style={styles.minMaxTemperature}>
-              {min && max.toFixed(1)}
-              °C
-            </Text>
-            <Text style={styles.minMaxDate}>{maxDate && dayjs(maxDate).format('DD/MM/YY HH:mm')}</Text>
-          </View>
-        </View>
+            {/* Display min & max temperature */}
+            <View style={styles.row30}>
+              <View style={styles.column}>
+                <Text style={{ color: textStyles[theme] }}>minimale</Text>
+                <Text style={{ color: textStyles[theme], ...styles.minMaxTemperature }}>
+                  {min && min.toFixed(1)}
+                  °C
+                </Text>
+                <Text style={{ color: textStyles[theme], ...styles.minMaxDate }}>
+                  {minDate && dayjs(minDate).format('DD/MM/YY HH:mm')}
+                </Text>
+              </View>
+              <View style={styles.column}>
+                <Text style={{ color: textStyles[theme] }}>maximale</Text>
+                <Text style={{ color: textStyles[theme], ...styles.minMaxTemperature }}>
+                  {min && max.toFixed(1)}
+                  °C
+                </Text>
+                <Text style={{ color: textStyles[theme], ...styles.minMaxDate }}>
+                  {maxDate && dayjs(maxDate).format('DD/MM/YY HH:mm')}
+                </Text>
+              </View>
+            </View>
 
-        {/* 24h stats */}
-        <View style={styles.row50}>
-          <View style={styles.column}>
-            <Text>dernières 24h</Text>
-            <Text>
-              <Text>moyenne : </Text>
-              <Text style={{ fontWeight: 'bold' }}>
-                {mean24h}
-                °C
-              </Text>
-            </Text>
-          </View>
-          <View style={styles.column}>
-            <Text>
-              <Text>minimale : </Text>
-              <Text style={{ fontWeight: 'bold' }}>
-                {min24h}
-                °C
-              </Text>
-            </Text>
-            <Text>
-              <Text>maximale : </Text>
-              <Text style={{ fontWeight: 'bold' }}>
-                {max24h}
-                °C
-              </Text>
-            </Text>
-          </View>
-        </View>
+            {/* 24h stats */}
+            <View style={styles.row50}>
+              <View style={styles.column}>
+                <Text style={{ color: textStyles[theme] }}>dernières 24h</Text>
+                <Text>
+                  <Text style={{ color: textStyles[theme] }}>moyenne : </Text>
+                  <Text style={{ color: textStyles[theme], fontWeight: 'bold' }}>
+                    {mean24h}
+                    °C
+                  </Text>
+                </Text>
+              </View>
+              <View style={styles.column}>
+                <Text>
+                  <Text style={{ color: textStyles[theme] }}>minimale : </Text>
+                  <Text style={{ color: textStyles[theme], fontWeight: 'bold' }}>
+                    {min24h}
+                    °C
+                  </Text>
+                </Text>
+                <Text>
+                  <Text style={{ color: textStyles[theme] }}>maximale : </Text>
+                  <Text style={{ color: textStyles[theme], fontWeight: 'bold' }}>
+                    {max24h}
+                    °C
+                  </Text>
+                </Text>
+              </View>
+            </View>
 
-        <View pointerEvents="none">
-          {last24h.length > 0 && (
-            <VictoryChart
-              height={200}
-              width={screenWidth}
-              minDomain={{ y: ViewThermo.calculateMinDomain(last24h) }}
-              domainPadding={{ x: 10 }}
-            >
-              <VictoryAxis dependentAxis fixLabelOverlap />
-              <VictoryAxis fixLabelOverlap tickFormat={(t) => t.toString().substring(0, 2)} />
-              <VictoryBar
-                style={{
-                  data: { fill: color },
-                  labels: { fill: 'white' },
-                }}
-                alignment="middle"
-                barRatio={0.8}
-                data={last24h}
-                x="time"
-                y="value"
-                labelComponent={<VictoryTooltip />}
-              />
-              <VictoryLine
-                style={{
-                  data: {
-                    opacity: 0.3,
-                    stroke: '#252525',
-                    strokeWidth: 1,
-                  },
-                }}
-                standalone={false}
-                data={line24h}
-                x="time"
-                y="value"
-              />
-            </VictoryChart>
-          )}
-        </View>
+            <View pointerEvents="none">
+              {last24h.length > 0 && (
+                <VictoryChart
+                  height={200}
+                  width={screenWidth}
+                  minDomain={{ y: ViewThermo.calculateMinDomain(last24h) }}
+                  domainPadding={{ x: 10 }}
+                >
+                  <VictoryAxis
+                    dependentAxis
+                    fixLabelOverlap
+                    style={{ tickLabels: { fill: textStyles[theme] } }}
+                  />
+                  <VictoryAxis
+                    fixLabelOverlap
+                    tickFormat={(t) => t.toString().substring(0, 2)}
+                    style={{ tickLabels: { fill: textStyles[theme] } }}
+                  />
+                  <VictoryBar
+                    style={{
+                      data: { fill: color },
+                      labels: { fill: 'white' },
+                    }}
+                    alignment="middle"
+                    barRatio={0.8}
+                    data={last24h}
+                    x="time"
+                    y="value"
+                    labelComponent={<VictoryTooltip />}
+                  />
+                  <VictoryLine
+                    style={{
+                      data: {
+                        opacity: 0.3,
+                        stroke: theme === 'light' ? '#252525' : '#fff',
+                        strokeWidth: 1,
+                      },
+                    }}
+                    standalone={false}
+                    data={line24h}
+                    x="time"
+                    y="value"
+                  />
+                </VictoryChart>
+              )}
+            </View>
 
-        {/* 30 days stats */}
-        <View style={styles.row30}>
-          <View style={styles.column}>
-            <Text>30 derniers jours</Text>
-            <Text>
-              <Text>moyenne : </Text>
-              <Text style={{ fontWeight: 'bold' }}>
-                {mean30d}
-                °C
-              </Text>
-            </Text>
-          </View>
-          <View style={styles.column}>
-            <Text>
-              <Text>minimale : </Text>
-              <Text style={{ fontWeight: 'bold' }}>
-                {min30d}
-                °C
-              </Text>
-            </Text>
-            <Text>
-              <Text>maximale : </Text>
-              <Text style={{ fontWeight: 'bold' }}>
-                {max30d}
-                °C
-              </Text>
-            </Text>
-          </View>
-        </View>
+            {/* 30 days stats */}
+            <View style={styles.row30}>
+              <View style={styles.column}>
+                <Text style={{ color: textStyles[theme] }}>30 derniers jours</Text>
+                <Text>
+                  <Text style={{ color: textStyles[theme] }}>moyenne : </Text>
+                  <Text style={{ color: textStyles[theme], fontWeight: 'bold' }}>
+                    {mean30d}
+                    °C
+                  </Text>
+                </Text>
+              </View>
+              <View style={styles.column}>
+                <Text>
+                  <Text style={{ color: textStyles[theme] }}>minimale : </Text>
+                  <Text style={{ color: textStyles[theme], fontWeight: 'bold' }}>
+                    {min30d}
+                    °C
+                  </Text>
+                </Text>
+                <Text>
+                  <Text style={{ color: textStyles[theme] }}>maximale : </Text>
+                  <Text style={{ color: textStyles[theme], fontWeight: 'bold' }}>
+                    {max30d}
+                    °C
+                  </Text>
+                </Text>
+              </View>
+            </View>
 
-        <View pointerEvents="none">
-          {last30d.length > 0 && (
-            <VictoryChart
-              height={200}
-              width={screenWidth}
-              minDomain={{ y: ViewThermo.calculateMinDomain(last30d) }}
-              domainPadding={{ x: 10 }}
-            >
-              <VictoryAxis dependentAxis fixLabelOverlap />
-              <VictoryAxis fixLabelOverlap />
-              <VictoryBar
-                style={{
-                  data: { fill: color },
-                  labels: { fill: 'white' },
-                }}
-                alignment="middle"
-                barRatio={0.9}
-                data={last30d}
-                x="time"
-                y="value"
-              />
-              <VictoryLine
-                style={{
-                  data: {
-                    opacity: 0.3,
-                    stroke: '#252525',
-                    strokeWidth: 1,
-                  },
-                }}
-                standalone={false}
-                data={line30d}
-                x="time"
-                y="value"
-              />
-            </VictoryChart>
-          )}
-        </View>
+            <View pointerEvents="none">
+              {last30d.length > 0 && (
+                <VictoryChart
+                  height={200}
+                  width={screenWidth}
+                  minDomain={{ y: ViewThermo.calculateMinDomain(last30d) }}
+                  domainPadding={{ x: 10 }}
+                >
+                  <VictoryAxis
+                    dependentAxis
+                    fixLabelOverlap
+                    style={{ tickLabels: { fill: textStyles[theme] } }}
+                  />
+                  <VictoryAxis
+                    fixLabelOverlap
+                    style={{ tickLabels: { fill: textStyles[theme] } }}
+                  />
+                  <VictoryBar
+                    style={{
+                      data: { fill: color },
+                      labels: { fill: 'white' },
+                      color: theme === 'light' ? '#252525' : '#fff',
+                    }}
+                    alignment="middle"
+                    barRatio={0.9}
+                    data={last30d}
+                    x="time"
+                    y="value"
+                  />
+                  <VictoryLine
+                    style={{
+                      data: {
+                        opacity: 0.3,
+                        stroke: theme === 'light' ? '#252525' : '#fff',
+                        strokeWidth: 1,
+                      },
+                    }}
+                    standalone={false}
+                    data={line30d}
+                    x="time"
+                    y="value"
+                  />
+                </VictoryChart>
+              )}
+            </View>
 
-        {/* 12 months stats */}
-        <View style={styles.row30}>
-          <View style={styles.column}>
-            <Text>12 derniers mois</Text>
-            <Text>
-              <Text>moyenne : </Text>
-              <Text style={{ fontWeight: 'bold' }}>
-                {mean52w}
-                °C
-              </Text>
-            </Text>
-          </View>
-          <View style={styles.column}>
-            <Text>
-              <Text>minimale : </Text>
-              <Text style={{ fontWeight: 'bold' }}>
-                {min52w}
-                °C
-              </Text>
-            </Text>
-            <Text>
-              <Text>maximale : </Text>
-              <Text style={{ fontWeight: 'bold' }}>
-                {max52w}
-                °C
-              </Text>
-            </Text>
-          </View>
-        </View>
+            {/* 12 months stats */}
+            <View style={styles.row30}>
+              <View style={styles.column}>
+                <Text style={{ color: textStyles[theme] }}>12 derniers mois</Text>
+                <Text>
+                  <Text style={{ color: textStyles[theme] }}>moyenne : </Text>
+                  <Text style={{ color: textStyles[theme], fontWeight: 'bold' }}>
+                    {mean52w}
+                    °C
+                  </Text>
+                </Text>
+              </View>
+              <View style={styles.column}>
+                <Text>
+                  <Text style={{ color: textStyles[theme] }}>minimale : </Text>
+                  <Text style={{ color: textStyles[theme], fontWeight: 'bold' }}>
+                    {min52w}
+                    °C
+                  </Text>
+                </Text>
+                <Text>
+                  <Text style={{ color: textStyles[theme] }}>maximale : </Text>
+                  <Text style={{ color: textStyles[theme], fontWeight: 'bold' }}>
+                    {max52w}
+                    °C
+                  </Text>
+                </Text>
+              </View>
+            </View>
 
-        <View pointerEvents="none">
-          {last52w.length > 0 && (
-            <VictoryChart
-              height={200}
-              width={screenWidth}
-              minDomain={{ y: ViewThermo.calculateMinDomain(last52w) }}
-              domainPadding={{ x: 10 }}
-            >
-              <VictoryBar
-                style={{
-                  data: { fill: color },
-                  labels: { fill: 'white' },
-                }}
-                alignment="middle"
-                barRatio={1.1}
-                data={last52w}
-                x="time"
-                y="value"
-              />
-              <VictoryLine
-                style={{
-                  data: {
-                    opacity: 0.3,
-                    stroke: '#252525',
-                    strokeWidth: 1,
-                  },
-                }}
-                standalone={false}
-                data={line52w}
-                x="time"
-                y="value"
-              />
-            </VictoryChart>
-          )}
-        </View>
-      </View>
+            <View pointerEvents="none">
+              {last52w.length > 0 && (
+                <VictoryChart
+                  height={200}
+                  width={screenWidth}
+                  minDomain={{ y: ViewThermo.calculateMinDomain(last52w) }}
+                  domainPadding={{ x: 10 }}
+                >
+                  <VictoryAxis
+                    dependentAxis
+                    fixLabelOverlap
+                    style={{ tickLabels: { fill: textStyles[theme] } }}
+                  />
+                  <VictoryAxis
+                    fixLabelOverlap
+                    style={{ tickLabels: { fill: textStyles[theme] } }}
+                  />
+                  <VictoryBar
+                    style={{
+                      data: { fill: color },
+                      labels: { fill: 'white' },
+                    }}
+                    alignment="middle"
+                    barRatio={1.1}
+                    data={last52w}
+                    x="time"
+                    y="value"
+                  />
+                  <VictoryLine
+                    style={{
+                      data: {
+                        opacity: 0.3,
+                        stroke: theme === 'light' ? '#252525' : '#fff',
+                        strokeWidth: 1,
+                      },
+                    }}
+                    standalone={false}
+                    data={line52w}
+                    x="time"
+                    y="value"
+                  />
+                </VictoryChart>
+              )}
+            </View>
+          </View>
+        )}
+      </ThemeContext.Consumer>
     )
   }
 }

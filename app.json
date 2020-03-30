@@ -4,7 +4,6 @@
     "slug": "thermo",
     "version": "1.0.0",
     "privacy": "unlisted",
-    "sdkVersion": "36.0.0",
     "platforms": [
       "ios"
     ],
@@ -25,7 +24,8 @@
       "supportsTablet": true,
       "bundleIdentifier": "net.j0k3r.thermo"
     },
-    "description": "",
-    "githubUrl": "https://github.com/j0k3r/thermo"
+    "description": "Thermo app to list available Sense Thermo Peanut",
+    "githubUrl": "https://github.com/j0k3r/thermo",
+    "userInterfaceStyle": "automatic"
   }
 }
