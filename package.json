@@ -36,7 +36,7 @@
     "babel-preset-expo": "^8.0.0",
     "eslint": "^6.8.0",
     "eslint-config-20minutes": "^1.0.8",
-    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-airbnb": "^18.1.0",
     "eslint-plugin-babel": "^5.3.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
