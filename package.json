@@ -34,7 +34,7 @@
     "@babel/core": "^7.9.0",
     "@babel/plugin-proposal-decorators": "^7.8.3",
     "babel-eslint": "^10.1.0",
-    "babel-preset-expo": "^8.1.0",
+    "babel-preset-expo": "^8.0.0",
     "eslint": "^6.8.0",
     "eslint-config-20minutes": "^1.0.8",
     "eslint-config-airbnb": "^18.1.0",
