@@ -10,7 +10,7 @@ enableScreens()
 
 const stackDefaultNavigationOptions = ({ theme }) => ({
   headerStyle: {
-    backgroundColor: theme === 'light' ? '#dedede' : '#3d3d3d',
+    backgroundColor: theme === 'light' ? '#fff' : '#3d3d3d',
   },
   headerTintColor: theme === 'light' ? '#000' : '#dedede',
   headerTitleStyle: {
