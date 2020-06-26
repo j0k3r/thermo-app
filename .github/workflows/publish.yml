@@ -22,4 +22,11 @@ jobs:
       - run: yarn install
         env:
           TZ: 'Europe/Paris'
+      - name: setup
+        shell: bash
+        env:
+          PROD_HOST: ${{ secrets.PROD_HOST }}
+        run: |
+          cp config.js.dist config.js
+          sed -i "s/my.thermo.application.com/$PROD_HOST/g" config.js
       - run: expo publish
