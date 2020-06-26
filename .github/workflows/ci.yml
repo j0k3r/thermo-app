@@ -10,7 +10,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -18,9 +17,10 @@ jobs:
         node-version: [12.x, 14.x]
 
     steps:
-      - uses: actions/checkout@v1
+      - name: checkout
+        uses: actions/checkout@v1
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: use node ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
@@ -40,8 +40,10 @@ jobs:
           CI: true
           TZ: 'Europe/Paris'
 
-      - uses: expo/expo-github-action@v4
+      - name: expo validator
+        uses: expo/expo-github-action@v5
         with:
           expo-version: 3.x
 
-      - run: expo doctor
+      - name: expo doctor
+        run: expo doctor
