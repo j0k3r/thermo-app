@@ -25,7 +25,7 @@
     "react-native-svg": "12.1.0",
     "react-native-vector-icons": "^7.1.0",
     "react-native-web": "~0.13.12",
-    "react-navigation": "^4.4.3",
+    "react-navigation": "^4.4.4",
     "react-navigation-stack": "^1.7.3",
     "timeago.js": "^4.0.2",
     "victory-native": "^32.0.2"
