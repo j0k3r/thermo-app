@@ -14,7 +14,7 @@
     "expo": "^41.0.1",
     "ky": "^0.27.0",
     "prop-types": "^15.7.2",
-    "react": "16.13.1",
+    "react": "17.0.2",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
     "react-native-appearance": "~0.3.3",
