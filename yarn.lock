@@ -5020,10 +5020,10 @@ klaw@^1.0.0:
   optionalDependencies:
     graceful-fs "^4.1.9"
 
-ky@^0.27.0:
-  version "0.27.0"
-  resolved "https://registry.yarnpkg.com/ky/-/ky-0.27.0.tgz#ecc9b195b9e1573ad6762a126bb3601d3bbd5b6c"
-  integrity sha512-pgaBuB6wI9DdMSOZBVh2WkcbkAdEG5AUEWuNhtThu6FLIpDbzqzC/fSMmqr/j1wwQyW3SP3KGau7EbzWNkQ/yg==
+ky@^0.28.1:
+  version "0.28.1"
+  resolved "https://registry.yarnpkg.com/ky/-/ky-0.28.1.tgz#023af92a59e06a0e351c7a0c38da6e5c0fd549c8"
+  integrity sha512-3pNpywiHBFAzf4gyBYS20Nf0G1b3VFOU4mltfyVf86/r/hixZ+X3jsyDs6QrapkV88CrXO9RDOhjEY5a6+aqxA==
 
 language-subtag-registry@~0.3.2:
   version "0.3.21"
