@@ -12,9 +12,12 @@ updates:
   - dependency-name: react-native-gesture-handler
     versions:
     - "> 1.7.0"
-  - dependency-name: react-native-screens
-    versions:
-    - "> 2.13.0"
   - dependency-name: react-native-web
     versions:
     - "> 0.14.7"
+  - dependency-name: expo
+    versions:
+    - "> 42"
+  - dependency-name: babel-preset-expo
+    versions:
+    - "> 8.3.0"
