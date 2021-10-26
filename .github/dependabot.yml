@@ -12,12 +12,25 @@ updates:
   - dependency-name: react-native-gesture-handler
     versions:
     - "> 1.7.0"
-  - dependency-name: react-native-web
-    versions:
-    - "> 0.14.7"
+  # following deps are managed by expo when upgrading (aka "Updated known packages to compatible versions.")
   - dependency-name: expo
     versions:
-    - "> 42"
+    - "*"
   - dependency-name: babel-preset-expo
     versions:
-    - "> 8.3.0"
+    - "*"
+  - dependency-name: react
+    versions:
+    - "*"
+  - dependency-name: react-dom
+    versions:
+    - "*"
+  - dependency-name: react-native
+    versions:
+    - "*"
+  - dependency-name: react-native-screens
+    versions:
+    - "*"
+  - dependency-name: react-native-web
+    versions:
+    - "*"
