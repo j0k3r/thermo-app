@@ -32,7 +32,7 @@ const RootStack = createStackNavigator(
 
 const Navigation = createAppContainer(RootStack)
 
-export default () => {
+const App = function appInit() {
   const theme = useColorScheme()
 
   return (
@@ -41,3 +41,5 @@ export default () => {
     </AppearanceProvider>
   )
 }
+
+export default App
