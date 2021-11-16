@@ -7,7 +7,7 @@ class HomeScreen extends Component {
   static navigationOptions = {
     title: 'Home',
     headerBackTitle: null,
-  };
+  }
 
   render() {
     return (
