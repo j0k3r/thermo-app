@@ -13,7 +13,7 @@
     "dayjs": "^1.10.7",
     "expo": "^43.0.3",
     "ky": "^0.28.7",
-    "prop-types": "^15.7.2",
+    "prop-types": "^15.8.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-native": "0.64.3",
