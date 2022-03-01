@@ -56,7 +56,7 @@ TimeAgo.propTypes = {
     .isRequired,
   locale: PropTypes.string,
   interval: PropTypes.number,
-  style: PropTypes.objectOf(PropTypes.any),
+  style: Text.propTypes.style,
 }
 
 TimeAgo.defaultProps = {
