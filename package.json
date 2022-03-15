@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "abort-controller": "^3.0.0",
-    "dayjs": "^1.10.8",
+    "dayjs": "^1.11.0",
     "expo": "^44.0.0",
     "ky": "^0.30.0",
     "prop-types": "^15.8.1",
