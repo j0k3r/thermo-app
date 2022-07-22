@@ -44,6 +44,7 @@ jobs:
         uses: expo/expo-github-action@v7
         with:
           expo-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
 
       - name: expo doctor
         run: expo doctor
