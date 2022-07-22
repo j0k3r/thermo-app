@@ -34,3 +34,6 @@ updates:
   - dependency-name: react-native-gesture-handler
     versions:
     - "*"
+  - dependency-name: react-native-svg
+    versions:
+    - "*"

@@ -14,14 +14,14 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x, 16.x]
+        node-version: [16.x]
 
     steps:
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: use node ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -41,9 +41,9 @@ jobs:
           TZ: 'Europe/Paris'
 
       - name: expo validator
-        uses: expo/expo-github-action@v5
+        uses: expo/expo-github-action@v7
         with:
-          expo-version: 3.x
+          expo-version: latest
 
       - name: expo doctor
         run: expo doctor
