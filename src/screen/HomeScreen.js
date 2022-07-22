@@ -1,25 +1,22 @@
-import React, { Component } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { SafeAreaView } from 'react-native'
-import { ThemeContext } from 'react-navigation'
 import ListThermo from '../thermo/ListThermo'
 
-class HomeScreen extends Component {
-  static navigationOptions = {
-    title: 'Home',
-    headerBackTitle: null,
-  }
+function HomeScreen({ route }) {
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: route.params.theme === 'light' ? '#fff' : '#3d3d3d' }}>
+      <ListThermo params={route.params} />
+    </SafeAreaView>
+  )
+}
 
-  render() {
-    return (
-      <ThemeContext.Consumer>
-        {(theme) => (
-          <SafeAreaView style={{ flex: 1, backgroundColor: theme === 'light' ? '#fff' : '#3d3d3d' }}>
-            <ListThermo />
-          </SafeAreaView>
-        )}
-      </ThemeContext.Consumer>
-    )
-  }
+HomeScreen.propTypes = {
+  route: PropTypes.shape({
+    params: PropTypes.shape({
+      theme: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
 }
 
 export default HomeScreen
