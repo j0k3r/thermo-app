@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  View, Text, FlatList, ActivityIndicator, Button,
+  View, Text, FlatList, ActivityIndicator, Button, useColorScheme,
 } from 'react-native'
 import { ListItem } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
@@ -37,10 +37,10 @@ class ListThermo extends BaseThermo {
       )
     }
 
-    const { params: { theme }, navigation } = this.props
+    const { theme, navigation } = this.props
 
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: theme === 'light' ? '#fff' : '#3d3d3d' }}>
         <FlatList
           data={this.state.data}
           refreshing={this.state.refreshing}
@@ -109,10 +109,9 @@ class ListThermo extends BaseThermo {
   }
 }
 
-export default function renderList(props) {
+export default function renderList() {
   const navigation = useNavigation()
+  const theme = useColorScheme()
 
-  const { params } = props
-
-  return <ListThermo params={params} navigation={navigation} />
+  return <ListThermo theme={theme} navigation={navigation} />
 }
