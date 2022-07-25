@@ -37,3 +37,9 @@ updates:
   - dependency-name: react-native-svg
     versions:
     - "*"
+  - dependency-name: react-native-safe-area-context
+    versions:
+    - "*"
+  - dependency-name: react-native-reanimated
+    versions:
+    - "*"
