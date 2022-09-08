@@ -16,9 +16,16 @@ class ListThermo extends BaseThermo {
   }
 
   render() {
+    const { theme, navigation } = this.props
+    const bgColor = theme === 'light' ? '#fff' : '#3d3d3d'
+    const textColor = theme === 'light' ? '#3d3d3d' : '#dedede'
+
     if (this.state.loading || (this.state.data.length === 0 && this.state.error === null)) {
       return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{
+          flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: bgColor,
+        }}
+        >
           <ActivityIndicator />
         </View>
       )
@@ -26,7 +33,10 @@ class ListThermo extends BaseThermo {
 
     if (this.state.error && this.state.fetchedAtLeastOnce === false) {
       return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={{
+          flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: bgColor,
+        }}
+        >
           <Text>Error while trying to retrieve data</Text>
           <Button title="Retry" onPress={this.fetchInitialData} />
           <DropdownAlert
@@ -37,10 +47,8 @@ class ListThermo extends BaseThermo {
       )
     }
 
-    const { theme, navigation } = this.props
-
     return (
-      <View style={{ flex: 1, backgroundColor: theme === 'light' ? '#fff' : '#3d3d3d' }}>
+      <View style={{ flex: 1, backgroundColor: bgColor }}>
         <FlatList
           data={this.state.data}
           refreshing={this.state.refreshing}
@@ -76,7 +84,7 @@ class ListThermo extends BaseThermo {
               }}
               leftElement={(
                 <View style={{
-                  backgroundColor: theme === 'light' ? '#fff' : '#3d3d3d',
+                  backgroundColor: bgColor,
                   borderRadius: 35,
                   height: 70,
                   width: 70,
@@ -84,7 +92,7 @@ class ListThermo extends BaseThermo {
                 >
                   <Text
                     style={{
-                      color: theme === 'light' ? '#3d3d3d' : '#dedede',
+                      color: textColor,
                       fontSize: 25,
                       fontWeight: '300',
                       marginTop: 21,
