@@ -45,9 +45,7 @@ class TimeAgo extends Component {
   render() {
     const { datetime, locale, style } = this.props
 
-    return (
-      <Text style={style}>{format(datetime, locale)}</Text>
-    )
+    return <Text style={style}>{format(datetime, locale)}</Text>
   }
 }
 

@@ -55,13 +55,12 @@ class BaseThermo extends Component {
   async fetchData() {
     const { signal } = this.controller
 
-    return ky.get(
-      `${config.API_URL}${this.api_path}`,
-      {
+    return ky
+      .get(`${config.API_URL}${this.api_path}`, {
         timeout: 10000,
         signal,
-      },
-    ).json()
+      })
+      .json()
   }
 
   async fetchInitialData() {

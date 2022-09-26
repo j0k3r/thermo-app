@@ -1,16 +1,8 @@
 import React from 'react'
-import {
-  View, Text, StyleSheet, Dimensions, useColorScheme, ScrollView,
-} from 'react-native'
+import { View, Text, StyleSheet, Dimensions, useColorScheme, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import dayjs from 'dayjs'
-import {
-  VictoryBar,
-  VictoryChart,
-  VictoryAxis,
-  VictoryTooltip,
-  VictoryLine,
-} from 'victory-native'
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryTooltip, VictoryLine } from 'victory-native'
 import TimeAgo from '../TimeAgo'
 import BaseThermo from './BaseThermo'
 
@@ -53,7 +45,7 @@ class ViewThermo extends BaseThermo {
   static calculateMinDomain(data) {
     const reduced = data.reduce(
       (prev, current) => (parseFloat(prev.value) < parseFloat(current.value) ? prev : current),
-      [{ value: 0 }],
+      [{ value: 0 }]
     )
 
     return reduced.value - 2
@@ -154,7 +146,10 @@ class ViewThermo extends BaseThermo {
 
     return (
       // https://github.com/facebook/react-native/issues/19658#issuecomment-423814249
-      <ScrollView contentInsetAdjustmentBehavior="automatic" style={{ backgroundColor: theme === 'light' ? '#fff' : '#3d3d3d' }}>
+      <ScrollView
+        contentInsetAdjustmentBehavior="automatic"
+        style={{ backgroundColor: theme === 'light' ? '#fff' : '#3d3d3d' }}
+      >
         <View style={{ flex: 1 }}>
           <View style={{ alignItems: 'flex-end' }}>
             <Text style={{ color: textStyles[theme] }}>

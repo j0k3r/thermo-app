@@ -3,9 +3,7 @@ import PropTypes from 'prop-types'
 import ViewThermo from '../thermo/ViewThermo'
 
 function DetailsScreen({ route }) {
-  return (
-    <ViewThermo data={route.params} />
-  )
+  return <ViewThermo data={route.params} />
 }
 
 DetailsScreen.propTypes = {

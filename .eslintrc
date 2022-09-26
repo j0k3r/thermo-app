@@ -1,6 +1,6 @@
 {
   "extends": [
-    "20minutes"
+    "@20minutes"
   ],
   "settings": {
     "import/resolver": {

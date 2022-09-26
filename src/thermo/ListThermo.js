@@ -1,7 +1,5 @@
 import React from 'react'
-import {
-  View, Text, FlatList, ActivityIndicator, Button, useColorScheme,
-} from 'react-native'
+import { View, Text, FlatList, ActivityIndicator, Button, useColorScheme } from 'react-native'
 import { ListItem } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
 import DropdownAlert from 'react-native-dropdownalert'
@@ -22,9 +20,13 @@ class ListThermo extends BaseThermo {
 
     if (this.state.loading || (this.state.data.length === 0 && this.state.error === null)) {
       return (
-        <View style={{
-          flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: bgColor,
-        }}
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: bgColor,
+          }}
         >
           <ActivityIndicator />
         </View>
@@ -33,9 +35,13 @@ class ListThermo extends BaseThermo {
 
     if (this.state.error && this.state.fetchedAtLeastOnce === false) {
       return (
-        <View style={{
-          flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: bgColor,
-        }}
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: bgColor,
+          }}
         >
           <Text>Error while trying to retrieve data</Text>
           <Button title="Retry" onPress={this.fetchInitialData} />
@@ -55,22 +61,25 @@ class ListThermo extends BaseThermo {
           onRefresh={this.onRefresh}
           renderItem={({ item }) => (
             <ListItem
-              title={(
+              title={
                 <Text>
                   <Text style={{ color: 'black', fontWeight: '200', fontSize: 35 }}>Thermo </Text>
                   <Text style={{ color: 'black', fontWeight: '400', fontSize: 35 }}>
                     {item.label}
                   </Text>
                 </Text>
-              )}
-              subtitle={(
+              }
+              subtitle={
                 <TimeAgo
                   style={{
-                    color: 'black', marginLeft: 5, fontSize: 15, fontWeight: '200',
+                    color: 'black',
+                    marginLeft: 5,
+                    fontSize: 15,
+                    fontWeight: '200',
                   }}
                   datetime={item.last_update}
                 />
-              )}
+              }
               containerStyle={{ backgroundColor: item.color }}
               onPress={() => {
                 navigation.navigate('Details', {
@@ -82,13 +91,14 @@ class ListThermo extends BaseThermo {
                   last_temperature: item.last_temperature,
                 })
               }}
-              leftElement={(
-                <View style={{
-                  backgroundColor: bgColor,
-                  borderRadius: 35,
-                  height: 70,
-                  width: 70,
-                }}
+              leftElement={
+                <View
+                  style={{
+                    backgroundColor: bgColor,
+                    borderRadius: 35,
+                    height: 70,
+                    width: 70,
+                  }}
                 >
                   <Text
                     style={{
@@ -103,7 +113,7 @@ class ListThermo extends BaseThermo {
                     °C
                   </Text>
                 </View>
-              )}
+              }
             />
           )}
           keyExtractor={(item) => item.mac}

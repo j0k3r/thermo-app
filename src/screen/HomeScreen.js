@@ -2,9 +2,7 @@ import React from 'react'
 import ListThermo from '../thermo/ListThermo'
 
 function HomeScreen() {
-  return (
-    <ListThermo />
-  )
+  return <ListThermo />
 }
 
 export default HomeScreen
