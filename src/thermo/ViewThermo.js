@@ -1,8 +1,8 @@
 import React from 'react'
-import { View, Text, StyleSheet, Dimensions, useColorScheme, ScrollView } from 'react-native'
+import { Dimensions, ScrollView, StyleSheet, Text, View, useColorScheme } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import dayjs from 'dayjs'
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTooltip, VictoryLine } from 'victory-native'
+import { VictoryAxis, VictoryBar, VictoryChart, VictoryLine, VictoryTooltip } from 'victory-native'
 import TimeAgo from '../TimeAgo'
 import BaseThermo from './BaseThermo'
 

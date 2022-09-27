@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, FlatList, ActivityIndicator, Button, useColorScheme } from 'react-native'
+import { ActivityIndicator, Button, FlatList, Text, View, useColorScheme } from 'react-native'
 import { ListItem } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
 import DropdownAlert from 'react-native-dropdownalert'
