@@ -9,6 +9,10 @@ updates:
   - dependency-name: victory-native
     versions:
     - "> 32.0.2"
+  # looks like it's broken and I can't debug it properly
+  - dependency-name: ky
+    versions:
+    - "> 0.31.4"
   # following deps are managed by expo when upgrading (aka "Updated known packages to compatible versions.")
   - dependency-name: expo
     versions:
