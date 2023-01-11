@@ -3,10 +3,10 @@ import { ActivityIndicator, Button, FlatList, Text, View, useColorScheme } from 
 import { ListItem } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
 import DropdownAlert from 'react-native-dropdownalert'
-import TimeAgo from '../TimeAgo'
-import BaseThermo from './BaseThermo'
+import TimeAgo from './TimeAgo'
+import Base from './Base'
 
-class ListThermo extends BaseThermo {
+class List extends Base {
   constructor(props) {
     super(props)
 
@@ -82,7 +82,7 @@ class ListThermo extends BaseThermo {
               }
               containerStyle={{ backgroundColor: item.color }}
               onPress={() => {
-                navigation.navigate('Details', {
+                navigation.navigate('Detail', {
                   mac: item.mac,
                   label: item.label,
                   color: item.color,
@@ -131,5 +131,5 @@ export default function renderList() {
   const navigation = useNavigation()
   const theme = useColorScheme()
 
-  return <ListThermo theme={theme} navigation={navigation} />
+  return <List theme={theme} navigation={navigation} />
 }

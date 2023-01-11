@@ -3,10 +3,10 @@ import { Dimensions, ScrollView, StyleSheet, Text, View, useColorScheme } from '
 import { useNavigation } from '@react-navigation/native'
 import dayjs from 'dayjs'
 import { VictoryAxis, VictoryBar, VictoryChart, VictoryLine, VictoryTooltip } from 'victory-native'
-import TimeAgo from '../TimeAgo'
-import BaseThermo from './BaseThermo'
+import TimeAgo from './TimeAgo'
+import Base from './Base'
 
-class ViewThermo extends BaseThermo {
+class Chart extends Base {
   constructor(props) {
     super(props)
 
@@ -226,7 +226,7 @@ class ViewThermo extends BaseThermo {
                 <VictoryChart
                   height={200}
                   width={screenWidth}
-                  minDomain={{ y: ViewThermo.calculateMinDomain(last24h) }}
+                  minDomain={{ y: Chart.calculateMinDomain(last24h) }}
                   domainPadding={{ x: 10 }}
                 >
                   <VictoryAxis
@@ -303,7 +303,7 @@ class ViewThermo extends BaseThermo {
                 <VictoryChart
                   height={200}
                   width={screenWidth}
-                  minDomain={{ y: ViewThermo.calculateMinDomain(last30d) }}
+                  minDomain={{ y: Chart.calculateMinDomain(last30d) }}
                   domainPadding={{ x: 10 }}
                 >
                   <VictoryAxis
@@ -379,7 +379,7 @@ class ViewThermo extends BaseThermo {
                 <VictoryChart
                   height={200}
                   width={screenWidth}
-                  minDomain={{ y: ViewThermo.calculateMinDomain(last52w) }}
+                  minDomain={{ y: Chart.calculateMinDomain(last52w) }}
                   domainPadding={{ x: 10 }}
                 >
                   <VictoryAxis
@@ -425,11 +425,11 @@ class ViewThermo extends BaseThermo {
   }
 }
 
-export default function renderView(props) {
+export default function renderChart(props) {
   const navigation = useNavigation()
   const theme = useColorScheme()
 
   const { data } = props
 
-  return <ViewThermo data={data} theme={theme} navigation={navigation} />
+  return <Chart data={data} theme={theme} navigation={navigation} />
 }

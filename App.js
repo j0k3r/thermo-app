@@ -1,16 +1,16 @@
 import React from 'react'
+import { useColorScheme } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { enableScreens } from 'react-native-screens'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { useColorScheme } from 'react-native'
-import HomeScreen from './src/screen/HomeScreen'
-import DetailsScreen from './src/screen/DetailsScreen'
+import Home from './screens/Home'
+import Detail from './screens/Detail'
 
 enableScreens()
 
 const Stack = createNativeStackNavigator()
 
-function App() {
+export default function App() {
   const theme = useColorScheme()
 
   return (
@@ -31,7 +31,7 @@ function App() {
       >
         <Stack.Screen
           name="Home"
-          component={HomeScreen}
+          component={Home}
           options={{
             title: 'Home',
             headerBackTitle: null,
@@ -39,8 +39,8 @@ function App() {
           initialParams={{ theme }}
         />
         <Stack.Screen
-          name="Details"
-          component={DetailsScreen}
+          name="Detail"
+          component={Detail}
           options={({ route }) => ({
             title: route.params.label,
             headerBackTitle: '',
@@ -61,5 +61,3 @@ function App() {
     </NavigationContainer>
   )
 }
-
-export default App
