@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import ViewThermo from '../thermo/ViewThermo'
+import Chart from '../components/Chart'
 
-function DetailsScreen({ route }) {
-  return <ViewThermo data={route.params} />
+function Detail({ route }) {
+  return <Chart data={route.params} />
 }
 
-DetailsScreen.propTypes = {
+Detail.propTypes = {
   route: PropTypes.shape({
     params: PropTypes.shape({
       theme: PropTypes.string.isRequired,
@@ -14,4 +14,4 @@ DetailsScreen.propTypes = {
   }).isRequired,
 }
 
-export default DetailsScreen
+export default Detail

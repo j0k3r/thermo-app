@@ -1,11 +1,11 @@
 import { Component } from 'react'
 import ky from 'ky'
 import { AbortController } from 'abort-controller/dist/abort-controller'
-import * as config from '../../config'
+import * as config from '../config'
 
 /* eslint-disable react/no-unused-state */
 // TODO: find a better way to make parent / children component
-class BaseThermo extends Component {
+class Base extends Component {
   constructor(props) {
     super(props)
 
@@ -84,4 +84,4 @@ class BaseThermo extends Component {
   }
 }
 
-export default BaseThermo
+export default Base
