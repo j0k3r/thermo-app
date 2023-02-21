@@ -35,7 +35,7 @@
     "@20minutes/eslint-config": "^1.2.4",
     "@babel/core": "^7.19.3",
     "@babel/eslint-parser": "^7.19.1",
-    "@babel/plugin-proposal-decorators": "^7.20.13",
+    "@babel/plugin-proposal-decorators": "^7.21.0",
     "@babel/preset-env": "^7.1.6",
     "babel-preset-expo": "~9.2.1",
     "eslint": "^8.34.0",
