@@ -7,7 +7,7 @@
     "lint": "eslint screens/ components/ *.js"
   },
   "dependencies": {
-    "@react-navigation/native": "^6.1.4",
+    "@react-navigation/native": "^6.1.5",
     "@react-navigation/native-stack": "^6.9.11",
     "@react-navigation/stack": "6.3.14",
     "abort-controller": "^3.0.0",
