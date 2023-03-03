@@ -11,23 +11,32 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [18.x]
+
     steps:
-      - uses: actions/checkout@v3
+      - name: 🏗 Setup repo
+        uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v3
+      - name: 🏗 Setup Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: ${{ matrix.node-version }}
+          cache: yarn
 
-      - uses: expo/expo-github-action@v7
+      - name: 🏗 Setup EAS
+        uses: expo/expo-github-action@v8
         with:
           expo-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
 
-      - run: yarn install
+      - name: 📦 Install dependencies
+        run: yarn install
         env:
           TZ: 'Europe/Paris'
 
-      - name: setup
+      - name: 🏗 Setup project
         shell: bash
         env:
           PROD_HOST: ${{ secrets.PROD_HOST }}
@@ -35,4 +44,5 @@ jobs:
           cp config.js.dist config.js
           sed -i "s/my.thermo.application.com/$PROD_HOST/g" config.js
 
-      - run: expo publish
+      - name: 🚀 Publish
+        run: expo publish

@@ -14,37 +14,38 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [18.x]
 
     steps:
-      - name: checkout
+      - name: 🏗 Setup repo
         uses: actions/checkout@v3
 
-      - name: use node ${{ matrix.node-version }}
+      - name: 🏗 Setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+          cache: yarn
 
-      - name: setup
+      - name: 🏗 Setup project
         run: cp config.js.dist config.js
 
-      - name: install
+      - name: 🏗 Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          expo-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: 📦 Install dependencies
         run: yarn install
         env:
           CI: true
           TZ: 'Europe/Paris'
 
-      - name: lint
+      - name: 🧽 Run linter
         run: yarn lint
         env:
           CI: true
           TZ: 'Europe/Paris'
 
-      - name: expo validator
-        uses: expo/expo-github-action@v7
-        with:
-          expo-version: latest
-          token: ${{ secrets.EXPO_TOKEN }}
-
-      - name: expo doctor
-        run: expo doctor
+      - name: 💊 Run doctor
+        run: npx expo-doctor
