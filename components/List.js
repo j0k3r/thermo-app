@@ -3,7 +3,9 @@ import { ActivityIndicator, Button, FlatList, Text, View, useColorScheme } from 
 import { ListItem } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
 import DropdownAlert from 'react-native-dropdownalert'
-import TimeAgo from './TimeAgo'
+import TimeAgo from 'react-timeago'
+import frenchStrings from 'react-timeago/lib/language-strings/fr-short'
+import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
 import Base from './Base'
 
 class List extends Base {
@@ -17,6 +19,7 @@ class List extends Base {
     const { theme, navigation } = this.props
     const bgColor = theme === 'light' ? '#fff' : '#3d3d3d'
     const textColor = theme === 'light' ? '#3d3d3d' : '#dedede'
+    const formatter = buildFormatter(frenchStrings)
 
     if (this.state.loading || (this.state.data.length === 0 && this.state.error === null)) {
       return (
@@ -77,7 +80,9 @@ class List extends Base {
                     fontSize: 15,
                     fontWeight: '200',
                   }}
-                  datetime={item.last_update}
+                  date={item.last_update}
+                  formatter={formatter}
+                  component={Text}
                 />
               }
               containerStyle={{ backgroundColor: item.color }}

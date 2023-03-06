@@ -3,7 +3,9 @@ import { Dimensions, ScrollView, StyleSheet, Text, View, useColorScheme } from '
 import { useNavigation } from '@react-navigation/native'
 import dayjs from 'dayjs'
 import { VictoryAxis, VictoryBar, VictoryChart, VictoryLine, VictoryTooltip } from 'victory-native'
-import TimeAgo from './TimeAgo'
+import TimeAgo from 'react-timeago'
+import frenchStrings from 'react-timeago/lib/language-strings/fr-short'
+import buildFormatter from 'react-timeago/lib/formatters/buildFormatter'
 import Base from './Base'
 
 class Chart extends Base {
@@ -144,6 +146,8 @@ class Chart extends Base {
       light: '#3d3d3d',
     }
 
+    const formatter = buildFormatter(frenchStrings)
+
     return (
       // https://github.com/facebook/react-native/issues/19658#issuecomment-423814249
       <ScrollView
@@ -160,7 +164,12 @@ class Chart extends Base {
           <View style={styles.container}>
             {/* Display big current temperature */}
             <View style={styles.bigCircle}>
-              <TimeAgo style={styles.bigDate} datetime={lastUpdate || new Date()} />
+              <TimeAgo
+                style={styles.bigDate}
+                date={lastUpdate || new Date()}
+                formatter={formatter}
+                component={Text}
+              />
               <Text style={styles.bigTemperature}>
                 {lastTemperature.toFixed(1)}
                 °C
