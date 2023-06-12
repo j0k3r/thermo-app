@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@20minutes/eslint-config": "^1.2.4",
-    "@babel/core": "^7.22.1",
+    "@babel/core": "^7.22.5",
     "@babel/eslint-parser": "^7.21.8",
     "@babel/plugin-proposal-decorators": "^7.22.3",
     "@babel/preset-env": "^7.22.4",
