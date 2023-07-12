@@ -5,6 +5,10 @@ updates:
   schedule:
     interval: daily
   open-pull-requests-limit: 10
+  groups:
+    babel-dependencies:
+      patterns:
+        - "*babel*"
   ignore:
   - dependency-name: victory-native
     versions:
