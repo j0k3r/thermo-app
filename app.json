@@ -1,39 +1,45 @@
 {
-  "expo": {
-    "name": "Thermo",
-    "slug": "thermo",
-    "description": "Thermo app to list available Sense Thermo Peanut",
-    "githubUrl": "https://github.com/j0k3r/thermo",
-    "version": "1.0.0",
-    "platforms": ["ios", "web"],
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "net.j0k3r.thermo",
-      "splash": {
-      "image": "./assets/splash.png",
-      "backgroundColor": "#ffffff",
-      "dark": {
-        "image": "./assets/splash-dark.png",
-        "backgroundColor": "#3d3d3d"
+   "expo":{
+      "name":"Thermo",
+      "slug":"thermo",
+      "description":"Thermo app to list available Sense Thermo Peanut",
+      "githubUrl":"https://github.com/j0k3r/thermo",
+      "version":"1.0.0",
+      "platforms":[
+         "ios",
+         "web"
+      ],
+      "orientation":"portrait",
+      "icon":"./assets/icon.png",
+      "userInterfaceStyle":"automatic",
+      "splash":{
+         "image":"./assets/splash.png",
+         "resizeMode":"contain",
+         "backgroundColor":"#ffffff"
       },
-    },
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    }
-  }
+      "updates":{
+         "fallbackToCacheTimeout":0
+      },
+      "assetBundlePatterns":[
+         "**/*"
+      ],
+      "ios":{
+         "supportsTablet":true,
+         "bundleIdentifier":"net.j0k3r.thermo",
+         "splash":{
+            "image":"./assets/splash.png",
+            "backgroundColor":"#ffffff",
+            "dark":{
+               "image":"./assets/splash-dark.png",
+               "backgroundColor":"#3d3d3d"
+            }
+         }
+      },
+      "web":{
+         "favicon":"./assets/favicon.png"
+      },
+      "updates": {
+        "useClassicUpdates": true
+      }
+   }
 }
