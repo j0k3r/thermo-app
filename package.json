@@ -32,7 +32,7 @@
     "victory-native": "^32.0.2"
   },
   "devDependencies": {
-    "@20minutes/eslint-config": "^1.2.4",
+    "@20minutes/eslint-config": "^1.2.6",
     "@babel/core": "^7.22.10",
     "@babel/eslint-parser": "^7.22.10",
     "@babel/plugin-proposal-decorators": "^7.22.10",
