@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@react-navigation/native": "^6.1.9",
-    "@react-navigation/native-stack": "^6.9.14",
+    "@react-navigation/native-stack": "^6.9.15",
     "@react-navigation/stack": "6.3.18",
     "abort-controller": "^3.0.0",
     "dayjs": "^1.11.10",
